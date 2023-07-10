@@ -1,0 +1,60 @@
+{
+    "45000":[
+        {
+            "label":"",
+            "value": ""
+        },
+        {
+            "label":"Deportes",
+            "value": "45300"
+        },
+        {
+            "label":"Cursos y programas",
+            "value": "45200"
+        },
+        {
+            "label":"Bibliotecas",
+            "value": "45100"
+        }
+    ],
+    "44000":[
+        {
+            "label":"",
+            "value": ""
+        },
+        {
+            "label":"Afiliaciones/Novedades",
+            "value": "44300"
+        },
+        {
+            "label":"Otros servicios",
+            "value": "44200"
+        },
+        {
+            "label":"Eventos",
+            "value": "44100"
+        }
+    ],
+    "43000":[
+        {
+            "label":"",
+            "value": ""
+        },
+        {
+            "label":"Alojamiento/Camping",
+            "value": "43400"
+        },
+        {
+            "label":"Agencia Viajes",
+            "value": "43300"
+        },
+        {
+            "label":"Afiliaciones/Novedades",
+            "value": "43200"
+        },
+        {
+            "label":"Afiliaciones Empresas",
+            "value": "43100"
+        }
+    ]
+}
