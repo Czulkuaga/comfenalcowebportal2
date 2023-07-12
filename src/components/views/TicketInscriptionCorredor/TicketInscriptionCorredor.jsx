@@ -401,7 +401,7 @@ const TicketInscriptionCorredor = () => {
             }
 
         } else {
-            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si deseas continuar, acepta los términos y condiciones y tratamiento de datos personales';
+            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
             
             if (Object.keys(newErrors).length === 0) {
                 try {
