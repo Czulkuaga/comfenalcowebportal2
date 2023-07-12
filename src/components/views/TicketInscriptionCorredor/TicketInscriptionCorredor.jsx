@@ -858,7 +858,7 @@ const TicketInscriptionCorredor = () => {
 
                                                             <div className={'form-component'}>
 
-                                                                <span htmlFor="tipo-persona" className='text-label label-select-form'>Tipo de persona *</span>
+                                                                <span htmlFor="tipo-persona" className='text-label label-select-form'>¿Eres persona o empresa? *</span>
                                                                 <select onChange={(e) => inputChangeHandler(e)} id='typePerson' value={formDataInfoCustomer.typePerson} name='typePerson' className='type-cliente custom-select custom-select-lg disabledTextInput'>
                                                                     {
                                                                         tipoCliente.length > 0 &&
@@ -895,7 +895,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="firstName" className='text-label label-select-form'>Primer nombre *</span>
+                                                                        <span htmlFor="firstName" className='text-label label-select-form'>¿Cuál es tu primer nombre? *</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.firstName} type='string' id='firstName' name='firstName' className='primer-nombre input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
@@ -905,7 +905,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="secondName" className='text-label label-select-form'>Segundo Nombre</span>
+                                                                        <span htmlFor="secondName" className='text-label label-select-form'>¿Cuál es tu segundo nombre?</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.secondName} type='string' id='secondName' name='secondName' className='segundo-nombre input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
@@ -915,7 +915,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="lastName" className='text-label label-select-form'>Primer Apellido *</span>
+                                                                        <span htmlFor="lastName" className='text-label label-select-form'>¿Cuál es tu primer apellido? *</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.lastName} type='string' id='lastName' name='lastName' className='primer-apellido input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
@@ -925,7 +925,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="secondLastName" className='text-label label-select-form'>Segundo Apellido</span>
+                                                                        <span htmlFor="secondLastName" className='text-label label-select-form'>¿Cuál es tu segundo apellido?</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.secondLastName} type='string' id='secondLastName' name='secondLastName' className='segundo-apellido input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
@@ -940,7 +940,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="birthday" className='text-label label-select-form'>Fecha de nacimiento *</span>
+                                                                        <span htmlFor="birthday" className='text-label label-select-form'>¿Cuál es tu fecha de nacimiento? *</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.birthday ? convertDate(formDataInfoCustomer.birthday) : ""} type='date' id='birthday' name='birthday' className='fecha-nacimiento input-form disabledTextInput' />
                                                                     </div>
 
@@ -952,7 +952,7 @@ const TicketInscriptionCorredor = () => {
 
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="gender" className='text-label label-select-form'>Género *</span>
+                                                                        <span htmlFor="gender" className='text-label label-select-form'>¿Cuál es tu género? *</span>
                                                                         <select readOnly onChange={(e) => inputChangeHandler(e)} id='gender' value={formDataInfoCustomer.gender} name='gender' className='genero custom-select custom-select-lg disabledTextInput'>
                                                                             {
                                                                                 genero.length > 0 &&
@@ -975,7 +975,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
                                                                     <div className={'form-component'}>
 
-                                                                        <span htmlFor="phone" className='text-label label-select-form'>Celular *</span>
+                                                                        <span htmlFor="phone" className='text-label label-select-form'>¿A qué número te podemos contactar? *</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.phone} type='string' id='phone' name='phone' className='celular input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
@@ -985,7 +985,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
 
                                                                     <div className={'form-component'}>
-                                                                        <span htmlFor="emailUser" className='text-label label-select-form'>Correo electrónico *</span>
+                                                                        <span htmlFor="emailUser" className='text-label label-select-form'>¿A qué correo electrónico te podemos contactar? *</span>
                                                                         <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.emailUser} type='email' id='emailUser' name='emailUser' className='email input-form disabledTextInput' />
                                                                     </div>
                                                                 </div>
