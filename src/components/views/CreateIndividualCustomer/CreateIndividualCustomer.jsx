@@ -71,13 +71,13 @@ const CreateIndividualCustomer = () => {
     setLoading(true)
     const newErrors = {}
 
-    if (formDataInfo.typePerson === "") newErrors.typePerson = 'El tipo de persona es requerido';
-    if (formDataInfo.firstName === "") newErrors.firstName = 'El primer nombre es requerido';
-    if (formDataInfo.lastName === "") newErrors.lastName = 'El primer apellido es requerido';
-    if (formDataInfo.birthday === "") newErrors.birthday = 'La fecha de nacimiento es requerida';
-    if (formDataInfo.gender === "") newErrors.gender = 'El género es requerido';
-    if (formDataInfo.phone === "") newErrors.phone = 'El número de celular del contacto es requerido';
-    if (formDataInfo.emailUser === "") newErrors.emailUser = 'El correo electrónico del contacto es requerido';
+    if (formDataInfo.typePerson === "") newErrors.typePerson = '¿Eres persona o empresa? es requerido';
+    if (formDataInfo.firstName === "") newErrors.firstName = '¿Cuál es tu primer nombre? es requerido';
+    if (formDataInfo.lastName === "") newErrors.lastName = '¿Cuál es tu segundo nombre? es requerido';
+    if (formDataInfo.birthday === "") newErrors.birthday = '¿Cuál es tu fecha de nacimiento? es requerida';
+    if (formDataInfo.gender === "") newErrors.gender = '¿Cuál es tu género? es requerido';
+    if (formDataInfo.phone === "") newErrors.phone = '¿A qué número de celular te podemos contactar? es requerido';
+    if (formDataInfo.emailUser === "") newErrors.emailUser = '¿A cuál correo electrónico te podemos contactar? es requerido';
     if (formDataInfo.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
 
     if (formDataInfo.phone !== "") {

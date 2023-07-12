@@ -251,8 +251,8 @@ const FindCorredor = () => {
             NumDoc: numberIdentification,
         }
 
-        if(typeIdentification === "") newErrors.typeIdentification = "El tipo de identificación es requerido"
-        if(numberIdentification === "") newErrors.numberIdentificaction = "El número de identificación es requerido"
+        if(typeIdentification === "") newErrors.typeIdentification = "¿Cuál es tu tipo de identificación? es requerido"
+        if(numberIdentification === "") newErrors.numberIdentificaction = "¿Cuál es tu número de indetificación? es requerido"
 
         if (Object.keys(newErrors).length === 0) {
             postData(data)
