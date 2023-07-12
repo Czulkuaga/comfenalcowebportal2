@@ -347,7 +347,7 @@ const TicketInscriptionCorredor = () => {
         setLoading(true)
 
         if (typeUser === 'NIT') {
-            if (formDataInfoCorporate.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
+            if (formDataInfoCorporate.aceptTerms === false) newErrors.aceptTerms = 'Si deseas continuar, acepta los términos y condiciones y tratamiento de datos personales';
             
             if (Object.keys(newErrors).length === 0) {
                 try {
@@ -382,14 +382,14 @@ const TicketInscriptionCorredor = () => {
                         sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000 })
+                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000 })
+                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                     }
                 } catch (error) {
-                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000 })
+                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 }
             } else {
@@ -401,7 +401,7 @@ const TicketInscriptionCorredor = () => {
             }
 
         } else {
-            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
+            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si deseas continuar, acepta los términos y condiciones y tratamiento de datos personales';
             
             if (Object.keys(newErrors).length === 0) {
                 try {
@@ -436,14 +436,14 @@ const TicketInscriptionCorredor = () => {
                         sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000 })
+                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000 })
+                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                     }
                 } catch (error) {
-                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000 })
+                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER})
                     setLoading(false)
                 }
             }else{
@@ -493,7 +493,7 @@ const TicketInscriptionCorredor = () => {
             if (!attachData.error) {
                 console.log(attachData)
             } else {
-                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000 })
+                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
             }
         } catch (error) {
 
@@ -509,11 +509,11 @@ const TicketInscriptionCorredor = () => {
 
         if (!isValidSize) {
             e.target.value = ''
-            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000 })
+            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         }
         if (!isValidType) {
             e.target.value = ''
-            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000 })
+            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         }
 
         const reader = new FileReader()

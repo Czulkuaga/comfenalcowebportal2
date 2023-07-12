@@ -250,7 +250,7 @@ const CreateTicketReferirCorporate = () => {
         if (Object.keys(newErrors).length === 0) {
             if (typeUser === 'NIT') {
                 if (formDataInfoCorporate.idCorredor === "") {
-                    toast.error(`El idCorredor es requerido para este proceso`, { autoClose: 2000 })
+                    toast.error(`El idCorredor es requerido para este proceso`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 } else {
                     let formDataCorporate = {
@@ -279,13 +279,13 @@ const CreateTicketReferirCorporate = () => {
     
                     if (verifyIsCorredorCorporate.corporateInfo.empresa[0].idCuenta !== "") {
                         if (verifyIsCorredorCorporate.error) {
-                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000 })
+                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                             // console.log(verifyIsCorredorCorporate.error)
                             setLoading(false)
                             return;
                         } else {
                             if (verifyIsCorredorCorporate.corporateInfo.empresa[0].corredor === false) {
-                                toast.error(`El corredor ingresado aún no puede referir`, { autoClose: 3000 })
+                                toast.error(`El corredor ingresado aún no puede referir`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                                 console.log(verifyIsCorredorCorporate)
                                 setLoading(false)
                                 return;
@@ -322,14 +322,14 @@ const CreateTicketReferirCorporate = () => {
                                         if (selectedFile) sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                                         setLoading(false)
                                         localStorage.clear()
-                                        toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000 })
+                                        toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                         return navigate(`/`)
                                     } else {
-                                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000 })
+                                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                         setLoading(false)
                                     }
                                 } catch (error) {
-                                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000 })
+                                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                     setLoading(false)
                                 }
                             }
@@ -338,7 +338,7 @@ const CreateTicketReferirCorporate = () => {
     
                     if (verifyCorredorIndividualCustomer.corredor !== "") {
                         if (verifyCorredorIndividualCustomer.error) {
-                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000 })
+                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                             setLoading(false)
                             return;
                         } else {
@@ -374,14 +374,14 @@ const CreateTicketReferirCorporate = () => {
                                     if (selectedFile) sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                                     setLoading(false)
                                     localStorage.clear()
-                                    toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000 })
+                                    toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                     return navigate(`/`)
                                 } else {
-                                    toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000 })
+                                    toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                     setLoading(false)
                                 }
                             } catch (error) {
-                                toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000 })
+                                toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                                 setLoading(false)
                             }
                         }
@@ -390,7 +390,7 @@ const CreateTicketReferirCorporate = () => {
                     if (verifyIsCorredorCorporate.corporateInfo.empresa[0].idCuenta === "" ||
                         verifyCorredorIndividualCustomer.corredor === ""
                     ) {
-                        toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000 })
+                        toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                         // console.log(verifyIsCorredorCorporate.error)
                         setLoading(false)
                     }
@@ -442,7 +442,7 @@ const CreateTicketReferirCorporate = () => {
                 // console.log(attachData)
                 return
             } else {
-                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000 })
+                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
             }
         } catch (error) {
 
@@ -458,11 +458,11 @@ const CreateTicketReferirCorporate = () => {
 
         if (!isValidSize) {
             e.target.value = ''
-            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000 })
+            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         }
         if (!isValidType) {
             e.target.value = ''
-            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000 })
+            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         }
 
         const reader = new FileReader()

@@ -5,7 +5,7 @@ const GET_IDENTIFICATION_TYPE_API_URL = `${URLServer}/api/master-identification-
 const GET_CLIENT_TYPE_API_URL = `${URLServer}/api/master-client-type/get`
 const GET_GENDER_TYPE_API_URL = `${URLServer}/api/master-gender/get`
 
-// const GET_CATEGORY_PQRS = `http://localhost:4000/files/get-file-data/CategoriasPQRS`
+const GET_CATEGORY_PQRS = `http://localhost:4000/files/get-file-data/CategoriasPQRS`
 
 ApiService.GetIdentificationtype = async () => {
     let getIdentificationtype = await fetch(GET_IDENTIFICATION_TYPE_API_URL)

@@ -459,18 +459,18 @@ const FindCorporate = () => {
                         findCorporateDatosBasicos.corporateInfo.empresa[0].corredor !== false ||
                         findCorporateTeam.corporateTeam !== ""
                     ) {
-                        toast.info(`La empresa no puede ser atendida`, { autoClose: 3000 })
+                        toast.info(`La empresa no puede ser atendida`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                     } else {
                         setLoading(false)
                         let clientIdEncrypt = window.btoa(`${JSON.stringify(response.corporateInfo.empresa[0].idCuenta)}`)
                         let CorredorEncrypt = window.btoa(`${JSON.stringify(idCorredor)}`)
-                        toast.success(`El cliente puede ser atendido`, { autoClose: 3000 })
+                        toast.success(`El cliente puede ser atendido`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                         navigate(`/programa-referidos/corredor/referir-corredor?usuario=${clientIdEncrypt}&idcorredor=${CorredorEncrypt}`)
                     }
                 } else {
                     setLoading(false)
-                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000 })
+                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                     navigate('/programa-referidos/corredor/crear-corporativo-from-refer')
                 }
             } catch (error) {

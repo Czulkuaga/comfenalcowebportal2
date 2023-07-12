@@ -279,20 +279,20 @@ const UpdateClientByUpdateData = () => {
                     if (updateIndividualCustomer.code !== "Error500") {
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha actualizado el cliente exitosamente`, { autoClose: 2000 })
+                        toast.success(`Se ha actualizado el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar actualizar el cliente`, { autoClose: 2000 })
+                        toast.error(`Hubo un error al intentar actualizar el cliente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                         return;
                     }
                 } catch (error) {
                     console.log(error)
-                    toast.error(`Hubo un error en el servicio de actualizar`, { autoClose: 2000 })
+                    toast.error(`Hubo un error en el servicio de actualizar`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 }
             } else {
-                toast.error(`No se pudo actualizar la información`, { autoClose: 2000 })
+                toast.error(`No se pudo actualizar la información`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
                 setLoading(false)
                 return;
             }
@@ -333,7 +333,7 @@ const UpdateClientByUpdateData = () => {
                     <div className='comf-container'>
                         <div className=''>
                             <div className='comf-col-12 container-text-informativo'>
-                                <h2>Actualización Cliente Comfenalco</h2>
+                                <h2>Actualización Datos de contacto</h2>
                                 <p className='comf-subtitulo'>A continuación podrás visualizar los datos como te encuentras registrado en Comfenalco Antioquia. Aquí podrás actualizar correo electrónico, celular y autorización de datos personales.</p>
                             </div>
                         </div>

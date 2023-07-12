@@ -318,14 +318,14 @@ const FindClientByUpdateData = () => {
                 // console.log(response)
                 if (response.corporateInfo.empresa[0].idCuenta !== "") {
                     let corredorIdEncrypt = window.btoa(`${JSON.stringify(response.corporateInfo.empresa[0].idCuenta)}`)
-                    toast.success(`Cliente encontrado`, { autoClose: 3000 })
+                    toast.success(`Cliente encontrado`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/clientes/verify-client-by-update?usuario=${corredorIdEncrypt}`)
                 } else {
-                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000 })
+                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     return
                 }
             } catch (error) {
-                toast.error(`${error}`, { autoClose: 3000 })
+                toast.error(`${error}`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                 setFormError(true)
                 setTimeout(() => {
                     setFormError(false)
@@ -340,7 +340,7 @@ const FindClientByUpdateData = () => {
             // console.log(IndividualCustomerData)
             try {
                 if (IndividualCustomerData.response) {
-                    toast.error(`Hubo un error al enviar los datos`, { autoClose: 3000 })
+                    toast.error(`Hubo un error al enviar los datos`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     // console.log(IndividualCustomerData)
                     setFormError(true)
                     setLoading(false)
@@ -351,16 +351,16 @@ const FindClientByUpdateData = () => {
                     // console.log(IndividualCustomerData)
                     setLoading(false)
                     if (IndividualCustomerData.IndividualCustomerTaxNumberCollection.IndividualCustomerTaxNumber === "") {
-                        toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000 })
+                        toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                         return;
                     } else {
                         let corredorIdEncrypt = window.btoa(`${IndividualCustomerData.IndividualCustomerTaxNumberCollection.IndividualCustomerTaxNumber.CustomerID}`)
-                        toast.success(`Cliente encontrado`, { autoClose: 3000 })
+                        toast.success(`Cliente encontrado`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                         navigate(`/programa-referidos/clientes/verify-client-by-update?usuario=${corredorIdEncrypt}`)
                     }
                 }
             } catch (error) {
-                toast.error(`${error}`, { autoClose: 3000 })
+                toast.error(`${error}`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                 console.log(error)
                 setFormError(true)
                 setLoading(false)
@@ -428,6 +428,11 @@ const FindClientByUpdateData = () => {
                                         :
                                         (
                                             <form ref={formSearchCorredor} className='search-corredor' onSubmit={(e) => handleSubmit(e)}>
+                                                 <div>
+                                                    <div className='form-component'>
+                                                        <p className='nota-form'>Ingresa el documento de identidad.</p>
+                                                    </div>
+                                                </div>
                                                 <div>
                                                     <div className="fila-col">
                                                         <div className={!errors.typeIdentification ? 'form-component' : 'form-component form-component-error'}>
@@ -465,11 +470,6 @@ const FindClientByUpdateData = () => {
                                                     </div>
                                                 </div>
 
-                                                <div>
-                                                    <div className='form-component'>
-                                                        <p className='nota-form'>Ingresa el documento de identidad ó el NIT sin dígito de verificación.</p>
-                                                    </div>
-                                                </div>
                                                 <div>
                                                     <div className='form-component'>
                                                         {

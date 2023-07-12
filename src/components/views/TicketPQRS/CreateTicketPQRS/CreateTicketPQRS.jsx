@@ -164,10 +164,10 @@ const CreateTicketPQRS = () => {
     setFormError(false)
     const newErrors = {}
 
-    if (formInfo.tipoTicket === "") newErrors.tipoTicket = "El tipo de manifestación es requerido"
-    if (formInfo.whereTicket === "") newErrors.whereTicket = "En dónde sucedió un valor es requerido"
-    if (formInfo.inWhatTicket === "") newErrors.inWhatTicket = "En qué servicio le pasó es requerido"
-    if (formInfo.canalComunicacion === "") newErrors.canalComunicacion = "El canal para recibir respuesta es requerido"
+    if (formInfo.tipoTicket === "") newErrors.tipoTicket = "¿Cuál es tu tipo de manifestación? es requerido"
+    if (formInfo.whereTicket === "") newErrors.whereTicket = "¿En qué sede ocurrió? es requerido"
+    if (formInfo.inWhatTicket === "") newErrors.inWhatTicket = "¿En qué servicio? es requerido"
+    if (formInfo.canalComunicacion === "") newErrors.canalComunicacion = "¿Cómo desea recibir su respuesta? es requerido"
     if (formInfo.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos, condiciones y tratamiento de datos personales'
 
 
@@ -179,12 +179,12 @@ const CreateTicketPQRS = () => {
           let isValidNumContact = formInfo.phone.match(isValidNumCont)
 
           if (isValidEmail === null) {
-            toast.error(`El correo electrónico no es válido`, { autoClose: 4000 })
+            toast.error(`El correo electrónico no es válido`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
             setLoading(false)
             return
           }
           if (isValidNumContact === null) {
-            toast.error(`El número de contácto no es válido`, { autoClose: 4000 })
+            toast.error(`El número de contácto no es válido`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
             setLoading(false)
             return
           }
@@ -254,7 +254,7 @@ const CreateTicketPQRS = () => {
               toast.success(`Su PQRSF fue radicada. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000 })
               return navigate(`/`)
             } catch (error) {
-              toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000 })
+              toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
               setFormError(true)
               console.log(error)
               setLoading(false)
@@ -292,10 +292,10 @@ const CreateTicketPQRS = () => {
             if (selectedFile) sendAttach(ticketPQRS.corporateInfo.crearTicket.ID)
             setLoading(false)
             localStorage.clear()
-            toast.success(`Su PQRSF fue radicada. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000 })
+            toast.success(`Su PQRSF fue radicada con el número #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
             return navigate(`/`)
           } catch (error) {
-            toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000 })
+            toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
             setFormError(true)
             console.log(error)
             setLoading(false)
@@ -334,10 +334,10 @@ const CreateTicketPQRS = () => {
           if (selectedFile) sendAttach(ticketPQRS.corporateInfo.crearTicket.ID)
           setLoading(false)
           localStorage.clear()
-          toast.success(`Su PQRSF fue radicada. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000 })
+          toast.success(`Su PQRSF fue radicada con el numero #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
           return navigate(`/`)
         } catch (error) {
-          toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000 })
+          toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
           setFormError(true)
           console.log(error)
           setLoading(false)

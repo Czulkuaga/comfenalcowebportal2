@@ -150,7 +150,7 @@ const VerifyCorredor = () => {
             })
                 .then(response => response.json())
                 .then(res => {
-                    toast.success(`Email enviado correctamente`, { autoClose: 3000 })
+                    toast.success(`Email enviado correctamente`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     console.log(res)
                     setLoading(false)
                 })
@@ -210,13 +210,13 @@ const VerifyCorredor = () => {
                 if (typeUser === "NIT") {
                     let response = await CorporateService.findCorporateData(formData)
                     // console.log(response)
-                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000 })
+                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/corredor/crear-ticket?idcorredor=${response.corporateInfo.empresa[0].idCuenta}`)
                     setLoading(false)
                 } else {
                     let response = await IndividualCustomerService.searchIndividualCustomerService(clientId)
                     // console.log(response)
-                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000 })
+                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/corredor/crear-ticket?idcorredor=${response.customerID}`)
                     setLoading(false)
 

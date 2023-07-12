@@ -147,7 +147,7 @@ const CreateIndividualCustomer = () => {
       let createCustomerTaxId = await IndividualCustomerService.createIndividualCustomerIdentification(formData2)
       // console.log(createCustomerTaxId)
       if (!createCustomerTaxId.error) {
-        toast.success(`Cliente registrado correctamente`, { autoClose: 2000 })
+        toast.success(`Cliente registrado correctamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         navigate(`/programa-referidos/corredor/crear-ticket?idcorredor=${createCustomerTaxId.results.CustomerID}`)
         setLoading(false)
       } else {

@@ -244,26 +244,26 @@ const CreateCorporate = () => {
           if (response3.corporateInfoContactData.contacto) {
             let corporateInfoContactdata = response3.corporateInfoContactData.contacto[0]
             setLoading(false)
-            toast.success(`Empresa registrada satisfactoriamente`, { autoClose: 2000 })
+            toast.success(`Empresa registrada satisfactoriamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
             navigate(`/programa-referidos/corredor/crear-ticket?idcorredor=${corporateInfoContactdata.AccountID}`)
 
           } else {
             setLoading(false)
-            toast.error(`No se pudo crear la empresa`, { autoClose: 2000 })
+            toast.error(`No se pudo crear la empresa`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
           }
         } else {
           setLoading(false)
-          toast.error(`No se pudo crear la empresa`, { autoClose: 2000 })
+          toast.error(`No se pudo crear la empresa`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         }
       } else {
         setLoading(false)
-        toast.error(`No se pudo crear la empresa`, { autoClose: 2000 })
+        toast.error(`No se pudo crear la empresa`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
       }
 
     } catch (error) {
       console.log(error)
       setLoading(false)
-      toast.error(`Hubo un error al enviar la información`, { autoClose: 2000 })
+      toast.error(`Hubo un error al enviar la información`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
     }
   }
 

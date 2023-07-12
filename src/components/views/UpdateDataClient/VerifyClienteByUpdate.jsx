@@ -199,7 +199,7 @@ const VerifyClienteByUpdate = () => {
             if (typeUser === "NIT") {
                 let response = await CorporateService.findCorporateData(formData)
                 console.log(response)
-                toast.success(`Verificación realizada exitosamente`, { autoClose: 3000 })
+                toast.success(`Verificación realizada exitosamente`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                 navigate(`/programa-referidos/corredor/crear-ticket?idcorredor=${response.corporateInfo.empresa[0].idCuenta}`)
                 setLoading(false)
             } else {
@@ -211,7 +211,7 @@ const VerifyClienteByUpdate = () => {
                 } else {
                     //   console.log(response)
                     let corredorIdEncrypt = window.btoa(`${JSON.stringify(response.customerID)}`)
-                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000 })
+                    toast.success(`Verificación realizada exitosamente`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/clientes/update-client-by-update?usuario=${corredorIdEncrypt}`)
                     setLoading(false)
                 }

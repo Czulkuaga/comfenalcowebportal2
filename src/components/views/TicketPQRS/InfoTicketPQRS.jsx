@@ -102,18 +102,18 @@ const InfoTicketPQRS = () => {
           })
           setLoading(false)
         } else {
-          toast.error("No se puede traer la información del ticket", 3000)
+          toast.error("No se puede traer la información del ticket", {position: toast.POSITION.TOP_CENTER})
           setLoading(false)
         }
       } catch (error) {
         console.log(error)
-        toast.error("No se puede traer la información del ticket", 3000)
+        toast.error("No se puede traer la información del ticket", {position: toast.POSITION.TOP_CENTER})
         setLoading(false)
         setFormError(true)
-        setTimeout(() => setFormError(false), 3000)
+        setTimeout(() => setFormError(false), {position: toast.POSITION.TOP_CENTER})
       }
     } else {
-      toast.error("No se puede traer la información del ticket", 3000)
+      toast.error("No se puede traer la información del ticket", {position: toast.POSITION.TOP_CENTER})
       setLoading(false)
     }
   }
@@ -122,7 +122,7 @@ const InfoTicketPQRS = () => {
     e.preventDefault()
     setLoading(true)
     if (formInfo.ticketStatus !== 'Cerrado.') {
-      toast.error("No se puede actualizar el ticket", 3000)
+      toast.error("No se puede actualizar el ticket", {position: toast.POSITION.TOP_CENTER})
       setLoading(false)
     } else {
       let updateTicketInfo = {
@@ -149,15 +149,15 @@ const InfoTicketPQRS = () => {
         let updatedTicket = await TicketService.updateTicket(updateTicketInfo)
         // console.log("Updated Ticket Data",updatedTicket)
         if (updatedTicket.actualizarticket.Status === "Actualizado") {
-          toast.success("Se calificó la PQRS correctamente", 3000)
+          toast.success("Se calificó la PQRS correctamente", {position: toast.POSITION.TOP_CENTER})
           setLoading(false)
           navigate('/')
         } else {
-          toast.error("Hubo un error al actualizar el ticket", 3000)
+          toast.error("Hubo un error al actualizar el ticket", {position: toast.POSITION.TOP_CENTER})
           setLoading(false)
         }
       } catch (error) {
-        toast.error("Hubo un error al actualizar el ticket", 3000)
+        toast.error("Hubo un error al actualizar el ticket", {position: toast.POSITION.TOP_CENTER})
         setLoading(false)
       }
     }
@@ -175,26 +175,22 @@ const InfoTicketPQRS = () => {
             <div className=''>
               <div className='comf-col-12 container-text-informativo'>
                 <h2>Consulta PQRS</h2>
-                <p className='comf-subtitulo'>En esta ventana podrás consultar el estado del ticket y verificar actualizaciones realizadas.</p>
+                <p className='comf-subtitulo'>En esta sesión podrás verificar el estado de tu PQRSF y calificar la gestión de la respuesta.</p>
               </div>
             </div>
           </div>
         </section>
         <section className='App-main-container'>
           <div className='components-main'>
-          <div className='cart-component'>
+          <div className='cart-component2'>
 
-            
                 <div className='cart-header margin-center'>
                   
-                  <h2 className='title-form'>Consulta de PQRS Clientes Comfenalco</h2>
+                  <h2 className='title-form'>Consulta PQRSF</h2>
                   {
                     formError && <h4 className='errorForm'>Hubo un error en el envío del formulario, intenta de nuevo o contáctate con nosotros</h4>
                   }
                 </div>
-
-                
-
 
                 <div className='card-main'>
                   {
@@ -208,11 +204,11 @@ const InfoTicketPQRS = () => {
                           <div className=''>
                             <div className=''>
                               <div className="fila-col ">
-                                <span htmlFor="idTicket" className="text-label label-select-form">ID del ticket *</span>
+                                <span htmlFor="idTicket" className="text-label label-select-form">Número de PQRSF *</span>
                                 <input onChange={(e) => inputChangeHandler(e)} value={formInfo.idTicket} type='string' id='idTicket' name='idTicket' readOnly={true} className='number-identification input-form disabledTextInput' />
                               </div>
                               <div className="fila-col ">
-                                <span htmlFor="ticketStatus" className="text-label label-select-form">Estado del ticket *</span>
+                                <span htmlFor="ticketStatus" className="text-label label-select-form">Estado de PQRSF *</span>
                                 <input onChange={(e) => inputChangeHandler(e)} value={formInfo.ticketStatus} type='string' id='ticketStatus' name='ticketStatus' readOnly={true} className='number-identification input-form disabledTextInput' />
                               </div>
                             </div>
@@ -319,11 +315,11 @@ const InfoTicketPQRS = () => {
                                     {
                                       formError ?
                                         (
-                                          <button className='btn-submit-search  margin-auto' type='button' readOnly>Actualizar PQRS</button>
+                                          <button className='btn-submit-search  margin-auto' type='button' readOnly>Calificar PQRS</button>
                                         )
                                         :
                                         (
-                                          <button className='btn-submit-search  margin-center' type='submit'>Actualizar PQRS</button>
+                                          <button className='btn-submit-search  margin-center' type='submit'>Calificar PQRS</button>
                                         )
                                     }
                                   </div>

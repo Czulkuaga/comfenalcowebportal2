@@ -302,10 +302,10 @@ const FindCorredor = () => {
                 // console.log(response)
                 if (response.corporateInfo.empresa[0].idCuenta !== "") {
                     let corredorIdEncrypt = window.btoa(`${JSON.stringify(response.corporateInfo.empresa[0].idCuenta)}`)
-                    toast.success(`Cliente encontrado`, { autoClose: 3000 })
+                    toast.success(`Cliente encontrado`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/corredor/verificar?usuario=${corredorIdEncrypt}`)
                 } else {
-                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000 })
+                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                     navigate('/programa-referidos/corredor/crear-corporativo')
                 }
             } catch (error) {
@@ -326,11 +326,11 @@ const FindCorredor = () => {
             try {
                 setLoading(false)
                 if (IndividualCustomerData.IndividualCustomerTaxNumberCollection.IndividualCustomerTaxNumber === "") {
-                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000 })
+                    toast.info(`El cliente no existe, por favor regístrate`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                     navigate('/programa-referidos/corredor/crear')
                 } else {
                     let corredorIdEncrypt = window.btoa(`${IndividualCustomerData.IndividualCustomerTaxNumberCollection.IndividualCustomerTaxNumber.CustomerID}`)
-                    toast.success(`Cliente encontrado`, { autoClose: 3000 })
+                    toast.success(`Cliente encontrado`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                     navigate(`/programa-referidos/corredor/verificar?usuario=${corredorIdEncrypt}`)
                 }
             } catch (error) {

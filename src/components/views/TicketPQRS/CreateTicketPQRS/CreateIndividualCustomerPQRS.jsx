@@ -143,7 +143,7 @@ const CreateIndividualCustomerPQRS = () => {
       requestDataCustomer.Email === ""
     ) {
       setLoading(false)
-      toast.error(`Los campos con * son requeridos`, { autoClose: 2000 })
+      toast.error(`Los campos con * son requeridos`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
     } else {
       // console.log(requestDataCustomer)
       //   let isValidNumber = requestDataCustomer.Mobile.match(validNumber)
@@ -151,11 +151,11 @@ const CreateIndividualCustomerPQRS = () => {
       let isValidPhone = requestDataCustomer.Mobile.match(ValidPhone)
 
       if (isValidEmail === null) {
-        toast.error(`Debes especificar un correo electrónico válido`, { autoClose: 2000 })
+        toast.error(`Debes especificar un correo electrónico válido`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
         setLoading(false)
       } else {
         if (isValidPhone === null) {
-          toast.error(`Debes especificar un número de celular válido`, { autoClose: 2000 })
+          toast.error(`Debes especificar un número de celular válido`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
           setLoading(false)
         }
         else {
@@ -174,12 +174,12 @@ const CreateIndividualCustomerPQRS = () => {
             // console.log(createCustomerTaxId)
             if (!createCustomerTaxId.error) {
 
-              toast.success(`Cliente registrado correctamente`, { autoClose: 2000 })
+              toast.success(`Cliente registrado correctamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
               let clientIdEncrypt = window.btoa(createCustomerTaxId.results.CustomerID)
               navigate(`/programa-referidos/pqrs/create-ticket-pqrs?usuario=${clientIdEncrypt}`)
               setLoading(false)
             } else {
-              toast.error(`Error al crear el cliente`, { autoClose: 2000 })
+              toast.error(`Error al crear el cliente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
               setFormError(true)
               setLoading(false)
               setTimeout(() => {
@@ -187,7 +187,7 @@ const CreateIndividualCustomerPQRS = () => {
               }, 5000);
             }
           } else {
-            toast.error(`Error al crear el cliente`, { autoClose: 2000 })
+            toast.error(`Error al crear el cliente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
             setFormError(true)
             setLoading(false)
             setTimeout(() => {
@@ -344,7 +344,7 @@ const CreateIndividualCustomerPQRS = () => {
 
                             <div className={!errors.typePerson ? 'form-component' : 'form-component form-component-error'}>
 
-                              <span htmlFor="tipo-persona" className='text-label label-select-form'>Tipo de persona *</span>
+                              <span htmlFor="tipo-persona" className='text-label label-select-form'>¿Eres persona o empresa? *</span>
                               <select onChange={(e) => inputChangeHandler(e)} id='typePerson' value={formDataInfo.typePerson} name='typePerson' className='type-cliente custom-select custom-select-lg'>
                                 <option value={""}>Seleccione tipo de cliente</option>
                                 {
@@ -385,7 +385,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={!errors.firstName ? 'form-component' : 'form-component form-component-error'}>
 
-                                  <span htmlFor="firstName" className='text-label label-select-form'>Primer nombre *</span>
+                                  <span htmlFor="firstName" className='text-label label-select-form'>¿Cuál es tu primer nombre? *</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.firstName} type='string' id='firstName' name='firstName' className='primer-nombre input-form' />
                                 </div>
                                 {
@@ -398,7 +398,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={'form-component'}>
 
-                                  <span htmlFor="secondName" className='text-label label-select-form'>Segundo Nombre</span>
+                                  <span htmlFor="secondName" className='text-label label-select-form'>¿Cuál es tu segundo nombre?</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.secondName} type='string' id='secondName' name='secondName' className='segundo-nombre input-form' />
                                 </div>
                               </div>
@@ -408,7 +408,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={!errors.lastName ? 'form-component' : 'form-component form-component-error'}>
 
-                                  <span htmlFor="lastName" className='text-label label-select-form'>Primer Apellido *</span>
+                                  <span htmlFor="lastName" className='text-label label-select-form'>¿Cuál es tu primer apellido? *</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.lastName} type='string' id='lastName' name='lastName' className='primer-apellido input-form' />
                                 </div>
                                 {
@@ -421,7 +421,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={'form-component'}>
 
-                                  <span htmlFor="secondLastName" className='text-label label-select-form'>Segundo Apellido</span>
+                                  <span htmlFor="secondLastName" className='text-label label-select-form'>¿Cuál es tu segundo apellido?</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.secondLastName} type='string' id='secondLastName' name='secondLastName' className='segundo-apellido input-form' />
                                 </div>
                               </div>
@@ -436,7 +436,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={!errors.birthday ? 'form-component' : 'form-component form-component-error'}>
 
-                                  <span htmlFor="birthday" className='text-label label-select-form'>Fecha de nacimiento *</span>
+                                  <span htmlFor="birthday" className='text-label label-select-form'>¿Cuál es tu fecha de nacimiento? *</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.birthday} type='date' id='birthday' name='birthday' className='fecha-nacimiento input-form' />
                                 </div>
                                 {
@@ -450,7 +450,7 @@ const CreateIndividualCustomerPQRS = () => {
 
                                 <div className={!errors.gender ? 'form-component' : 'form-component form-component-error'}>
 
-                                  <span htmlFor="gender" className='text-label label-select-form'>Género *</span>
+                                  <span htmlFor="gender" className='text-label label-select-form'>¿Cuál es tu género? *</span>
                                   <select onChange={(e) => inputChangeHandler(e)} id='gender' value={formDataInfo.gender} name='gender' className='genero custom-select custom-select-lg'>
                                     <option value={""}>Seleccione el género</option>
                                     {
@@ -472,7 +472,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
                                 <div className={!errors.phone ? 'form-component' : 'form-component form-component-error'}>
 
-                                  <span htmlFor="phone" className='text-label label-select-form'>Celular *</span>
+                                  <span htmlFor="phone" className='text-label label-select-form'>¿A qué número de celular te podemos contactar? *</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.phone} type='string' id='phone' name='phone' className='celular input-form' />
                                 </div>
                                 {
@@ -485,7 +485,7 @@ const CreateIndividualCustomerPQRS = () => {
                               <div className='position-relative'>
 
                                 <div className={!errors.emailUser ? 'form-component' : 'form-component form-component-error'}>
-                                  <span htmlFor="emailUser" className='text-label label-select-form'>Correo electrónico *</span>
+                                  <span htmlFor="emailUser" className='text-label label-select-form'>¿A cuál correo electrónico te podemos contactar? *</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.emailUser} type='email' id='emailUser' name='emailUser' className='email input-form' />
                                 </div>
                                 {

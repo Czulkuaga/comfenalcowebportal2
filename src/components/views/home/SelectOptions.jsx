@@ -9,7 +9,7 @@ const SelectOptions = () => {
                     <div className=''>
                         <div className='comf-col-12 container-text-informativo'>
                             <h2>Gestión de corredores</h2>
-                            <p className='comf-subtitulo'>En esta sección se podrán inscribir corredores para Comfenalco, consular el estado del proceso y el estado de las solicitudes.</p>
+                            <p className='comf-subtitulo'>En esta sección se podrán inscribir corredores para Comfenalco, consultar el estado del proceso y el estado de las solicitudes.</p>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ const SelectOptions = () => {
                         {/* <Link className='link-card-enlace' to={'/programa-referidos/pqrs/find-client'}>
                             <div className="card-enlace">
                                 <img src='./asset/Icon-2.svg' alt='Icono crear PQRS' />
-                                <h3 className="title">Crea tu PQRSF</h3>
+                                <h3 className="title">Creación tu PQRSF</h3>
                                 
                             </div>
                         </Link>
@@ -54,6 +54,13 @@ const SelectOptions = () => {
                                 <img src='./asset/Icon-1.svg' alt='Icono crear PQRS' />
                                 <h3 className="title">Actualización de datos</h3>
                                 
+                            </div>
+                        </Link>
+
+                        <Link className='link-card-enlace' to={'https://www.comfenalcoantioquia.com.co/contactanos'}>
+                            <div className="card-enlace">
+                                <img src='./asset/icon-corredor.svg' alt='Icono crear PQRS' />
+                                <h3 className="title">Contáctenos</h3>
                             </div>
                         </Link> */}
 
