@@ -179,7 +179,7 @@ const CreateCorporate = () => {
   const postData = async (formData) => {
     try {
       let response = await CorporateService.createCorporateAccount(formData)
-      console.log(response)
+      // console.log(response)
 
       if (response.corporateInfo.empresa) {
         let corporateInfo = response.corporateInfo.empresa[0]
@@ -245,21 +245,21 @@ const CreateCorporate = () => {
           if (response3.corporateInfoContactData.contacto) {
             // let corporateInfoContactdata = response3.corporateInfoContactData.contacto[0]
             setLoading(false)
-            toast.success(`Empresa registrada satisfactoriamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
-            
+            toast.success(`Empresa registrada satisfactoriamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
+
             // let corredorIdEncrypt = window.btoa(`${JSON.stringify(response.corporateInfo.empresa[0].AccountID)}`)
             navigate(`/programa-referidos/corredor/find-corporate`)
           } else {
             setLoading(false)
-            toast.error(`No se pudo crear la empresa`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+            toast.error(`No se pudo crear la empresa`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
           }
         } else {
           setLoading(false)
-          toast.error(`No se pudo crear la empresa`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+          toast.error(`No se pudo crear la empresa`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         }
       } else {
         setLoading(false)
-        toast.error(`No se pudo crear la empresa`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+        toast.error(`No se pudo crear la empresa`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
       }
 
     } catch (error) {
@@ -304,47 +304,77 @@ const CreateCorporate = () => {
       setErrors(newErrors)
       console.log(error)
     }
-  },[getOneTypeIdentification])
+  }, [getOneTypeIdentification])
 
   const gettipoCliente = React.useCallback(async () => {
-    await fetch(`${Server}/api/master-client-type/get`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(res => {
-        //console.log(res)
-        if (res.code === 'success') {
-          CleaningTipoCliente()
-          setTipoCliente(res.tipocliente)
-          res.tipocliente.map((tipo) => (
-            typeClient.push(tipo)
-          ))
-        }
-      })
-  },[])
+    try {
+      let getTipoCliente = await ApiService.GetClientType()
+      if (getTipoCliente) {
+        CleaningTipoCliente()
+        setTipoCliente(getTipoCliente.clientType)
+        getTipoCliente.clientType.map((tipo) => (
+          typeClient.push(tipo)
+        ))
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+      console.log(error)
+      setErrors(newErrors)
+    }
+    // await fetch(`${Server}/api/master-client-type/get`, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "GET",
+    // })
+    //   .then(response => response.json())
+    //   .then(res => {
+    //     //console.log(res)
+    //     if (res.code === 'success') {
+    //       CleaningTipoCliente()
+    //       setTipoCliente(res.tipocliente)
+    //       res.tipocliente.map((tipo) => (
+    //         typeClient.push(tipo)
+    //       ))
+    //     }
+    //   })
+  }, [])
 
   const gettipoSector = async () => {
-    await fetch(`${Server}/api/master-sector-type/get`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(res => {
-        //console.log(res)
-        if (res.code === 'success') {
-          setTipoSector(res.tiposector)
-          res.tiposector.map((tipo) => (
-            typeSector.push(tipo)
-          ))
-        }
-      })
+    try {
+      let getSectorType = await ApiService.GetSectorType()
+      if (getSectorType) {
+        CleaningTipoCliente()
+        setTipoSector(getSectorType.getSectorType)
+        getSectorType.getSectorType.map((tipo) => (
+          typeSector.push(tipo)
+        ))
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+      console.log(error)
+      setErrors(newErrors)
+    }
+    // await fetch(`${Server}/api/master-sector-type/get`, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "GET",
+    // })
+    //   .then(response => response.json())
+    //   .then(res => {
+    //     //console.log(res)
+    //     if (res.code === 'success') {
+    //       setTipoSector(res.tiposector)
+    //       res.tiposector.map((tipo) => (
+    //         typeSector.push(tipo)
+    //       ))
+    //     }
+    //   })
   }
 
   React.useEffect(() => {
@@ -442,7 +472,7 @@ const CreateCorporate = () => {
 
                             <div className='fila-col '>
                               <div className='position-relative'>
-                                <div className={!errors.razonSocial ? 'form-component': 'form-component form-component-error'}>
+                                <div className={!errors.razonSocial ? 'form-component' : 'form-component form-component-error'}>
 
                                   <span htmlFor="razonSocial" className='text-label label-select-form'>Razon social</span>
                                   <input onChange={(e) => inputChangeHandler(e)} value={formDataInfo.razonSocial} type='text' id='razonSocial' name='razonSocial' className='razon-social input-form' />

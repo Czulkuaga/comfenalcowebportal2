@@ -74,13 +74,13 @@ const CreateIndividualCustomerPQRS = () => {
     setLoading(true)
     const newErrors = {}
 
-    if (formDataInfo.typePerson === "") newErrors.typePerson = 'El tipo de persona es requerido';
-    if (formDataInfo.firstName === "") newErrors.firstName = 'El primer nombre es requerido';
-    if (formDataInfo.lastName === "") newErrors.lastName = 'El primer apellido es requerido';
-    if (formDataInfo.birthday === "") newErrors.birthday = 'La fecha de nacimiento es requerida';
-    if (formDataInfo.gender === "") newErrors.gender = 'El género es requerido';
-    if (formDataInfo.phone === "") newErrors.phone = 'El número de celular del contacto es requerido';
-    if (formDataInfo.emailUser === "") newErrors.emailUser = 'El correo electrónico del contacto es requerido';
+    if (formDataInfo.typePerson === "") newErrors.typePerson = '¿Eres persona o empresa? es requerido';
+    if (formDataInfo.firstName === "") newErrors.firstName = '¿Cuál es tu primer nombre? es requerido';
+    if (formDataInfo.lastName === "") newErrors.lastName = '¿Cuál es tu primer apellido? es requerido';
+    if (formDataInfo.birthday === "") newErrors.birthday = '¿Cual es tu fecha de nacimiento? es requerida';
+    if (formDataInfo.gender === "") newErrors.gender = '¿Cual es tu género? es requerido';
+    if (formDataInfo.phone === "") newErrors.phone = '¿A qué número de celular te podemos contactar? es requerido';
+    if (formDataInfo.emailUser === "") newErrors.emailUser = '¿A qué correo electrónico te podemos contactar? es requerido';
     if (formDataInfo.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
 
     if (formDataInfo.phone !== "") {
@@ -215,7 +215,7 @@ const CreateIndividualCustomerPQRS = () => {
 
   const getOneTypeIdentification = React.useCallback((identificationTypeData) => {
     let findOneIdentificationtype = identificationTypeData.find((identType) => identType.identificador === typeUser)
-    console.log(findOneIdentificationtype)
+    // console.log(findOneIdentificationtype)
     setFinderTypeDoc(findOneIdentificationtype)
   }, [typeUser])
 
@@ -346,7 +346,7 @@ const CreateIndividualCustomerPQRS = () => {
 
                               <span htmlFor="tipo-persona" className='text-label label-select-form'>¿Eres persona o empresa? *</span>
                               <select onChange={(e) => inputChangeHandler(e)} id='typePerson' value={formDataInfo.typePerson} name='typePerson' className='type-cliente custom-select custom-select-lg'>
-                                <option value={""}>Seleccione tipo de cliente</option>
+                                <option value={""}></option>
                                 {
                                   tipoCliente.length > 0 &&
                                   <>
@@ -452,11 +452,11 @@ const CreateIndividualCustomerPQRS = () => {
 
                                   <span htmlFor="gender" className='text-label label-select-form'>¿Cuál es tu género? *</span>
                                   <select onChange={(e) => inputChangeHandler(e)} id='gender' value={formDataInfo.gender} name='gender' className='genero custom-select custom-select-lg'>
-                                    <option value={""}>Seleccione el género</option>
+                                    <option value={""}></option>
                                     {
                                       genero.length > 0 &&
                                       genero.map((tipo) => (
-                                        <option key={tipo.code} value={`${tipo.code}`}>{tipo.description}</option>
+                                        <option key={tipo.code} value={`${tipo.code}`}>{tipo.descripcion}</option>
                                       ))
 
                                     }

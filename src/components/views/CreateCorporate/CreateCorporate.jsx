@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../App.css'
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import Server from '../../../config/Server'
+// import Server from '../../../config/Server'
 // import { format } from "date-fns";
 import { RemoveTilde } from '../../../utils/functions'
 
@@ -305,56 +305,75 @@ const CreateCorporate = () => {
   },[getOneTypeIdentification])
 
   const gettipoCliente = React.useCallback(async () => {
-    const newErrors = {}
-    await fetch(`${Server}/api/master-client-type/get`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(res => {
-        //console.log(res)
-        if (res.code === 'success') {
-          CleaningTipoCliente()
-          setTipoCliente(res.tipocliente)
-          res.tipocliente.map((tipo) => (
-            typeClient.push(tipo)
-          ))
-        }
-      })
-      .catch(err => {
-        newErrors.formError = "Hubo un error al conectarse con el servicio, recarga la página e intenta de nuevo o contáctate con nosotros"
-        setErrors(newErrors)
-        console.log(err)
-      })
-  },[])
+    try {
+      let getTipoCliente = await ApiService.GetClientType()
+      if (getTipoCliente) {
+        CleaningTipoCliente()
+        setTipoCliente(getTipoCliente.clientType)
+        getTipoCliente.clientType.map((tipo) => (
+          typeClient.push(tipo)
+        ))
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+      console.log(error)
+      setErrors(newErrors)
+    }
+    // await fetch(`${Server}/api/master-client-type/get`, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "GET",
+    // })
+    //   .then(response => response.json())
+    //   .then(res => {
+    //     //console.log(res)
+    //     if (res.code === 'success') {
+    //       CleaningTipoCliente()
+    //       setTipoCliente(res.tipocliente)
+    //       res.tipocliente.map((tipo) => (
+    //         typeClient.push(tipo)
+    //       ))
+    //     }
+    //   })
+  }, [])
 
   const gettipoSector = async () => {
-    const newErrors = {}
-    await fetch(`${Server}/api/master-sector-type/get`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "GET",
-    })
-      .then(response => response.json())
-      .then(res => {
-        //console.log(res)
-        if (res.code === 'success') {
-          setTipoSector(res.tiposector)
-          res.tiposector.map((tipo) => (
-            typeSector.push(tipo)
-          ))
-        }
-      })
-      .catch(err => {
-        newErrors.formError = "Hubo un error al conectarse con el servicio, recarga la página e intenta de nuevo o contáctate con nosotros"
-        setErrors(newErrors)
-        console.log(err)
-      })
+    try {
+      let getSectorType = await ApiService.GetSectorType()
+      // console.log(getSectorType)
+      if (getSectorType) {
+        CleaningTipoCliente()
+        setTipoSector(getSectorType.getSectorType)
+        getSectorType.getSectorType.map((tipo) => (
+          typeSector.push(tipo)
+        ))
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+      console.log(error)
+      setErrors(newErrors)
+    }
+    // await fetch(`${Server}/api/master-sector-type/get`, {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "GET",
+    // })
+    //   .then(response => response.json())
+    //   .then(res => {
+    //     //console.log(res)
+    //     if (res.code === 'success') {
+    //       setTipoSector(res.tiposector)
+    //       res.tiposector.map((tipo) => (
+    //         typeSector.push(tipo)
+    //       ))
+    //     }
+    //   })
   }
 
   React.useEffect(() => {
@@ -608,7 +627,7 @@ const CreateCorporate = () => {
                                 Object.keys(errors).length !== 0 ?
                                   (
                                     <div>
-                                      <button className='btn-cancel-back margin-auto' type='button' readOnly>Cancelar</button>
+                                      <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
                                       <button className='btn-submit-search margin-auto' type='button' readOnly>Crear Empresa</button>
                                     </div>
                                   )

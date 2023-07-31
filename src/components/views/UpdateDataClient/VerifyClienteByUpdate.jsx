@@ -130,7 +130,7 @@ const VerifyClienteByUpdate = () => {
             emailUser: emailUser,
             customerID: customerID
         }
-        // console.log(emailUser)
+        // console.log(data)
         if (emailUser) {
             await fetch(`${Setting}/api/users/verify/customer-verify`, {
                 headers: {

@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../App.css'
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from "react-router-dom";
-import Server from '../../../config/Server'
+// import Server from '../../../config/Server'
 
 //import CustomComponents
 import Spinner from '../../custom/Spinner';
@@ -66,6 +66,10 @@ const CreateTicketReferirCorporate = () => {
         typeClient.splice(0, typeClient.lenght)
     }
 
+    const backToHome = () => {
+        navigate('/programa-referidos/corredor/find-corporate')
+    }
+
     //Functions
 
     const getOneTypeIdentification = React.useCallback((identificationTypeData) => {
@@ -91,45 +95,59 @@ const CreateTicketReferirCorporate = () => {
     }, [getOneTypeIdentification])
 
     const gettipoCliente = React.useCallback(async () => {
-        await fetch(`${Server}/api/master-client-type/get`, {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(res => {
-                //console.log(res)
-                if (res.code === 'success') {
-                    CleaningTipoCliente()
-                    setTipoCliente(res.tipocliente)
-                    res.tipocliente.map((tipo) => (
-                        typeClient.push(tipo)
-                    ))
-                }
-            })
+        try {
+            let getTipoCliente = await ApiService.GetClientType()
+            if (getTipoCliente) {
+                CleaningTipoCliente()
+                setTipoCliente(getTipoCliente.clientType)
+                getTipoCliente.clientType.map((tipo) => (
+                    typeClient.push(tipo)
+                ))
+            }
+        } catch (error) {
+            const newErrors = {}
+            newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+            console.log(error)
+            setErrors(newErrors)
+        }
+        // await fetch(`${Server}/api/master-client-type/get`, {
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json"
+        //   },
+        //   method: "GET",
+        // })
+        //   .then(response => response.json())
+        //   .then(res => {
+        //     //console.log(res)
+        //     if (res.code === 'success') {
+        //       CleaningTipoCliente()
+        //       setTipoCliente(res.tipocliente)
+        //       res.tipocliente.map((tipo) => (
+        //         typeClient.push(tipo)
+        //       ))
+        //     }
+        //   })
     }, [])
 
     const gettipoSector = React.useCallback(async () => {
-        await fetch(`${Server}/api/master-sector-type/get`, {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(res => {
-                //console.log(res)
-                if (res.code === 'success') {
-                    setTipoSector(res.tiposector)
-                    res.tiposector.map((tipo) => (
-                        typeSector.push(tipo)
-                    ))
-                }
-            })
-    }, [])
+        try {
+            let getSectorType = await ApiService.GetSectorType()
+            // console.log(getSectorType)
+            if (getSectorType) {
+                CleaningTipoCliente()
+                setTipoSector(getSectorType.getSectorType)
+                getSectorType.getSectorType.map((tipo) => (
+                    typeSector.push(tipo)
+                ))
+            }
+        } catch (error) {
+            const newErrors = {}
+            newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+            console.log(error)
+            setErrors(newErrors)
+        }
+    },[])
 
     const getUserData = React.useCallback(async (params) => {
         setLoading(true)
@@ -250,7 +268,7 @@ const CreateTicketReferirCorporate = () => {
         if (Object.keys(newErrors).length === 0) {
             if (typeUser === 'NIT') {
                 if (formDataInfoCorporate.idCorredor === "") {
-                    toast.error(`El idCorredor es requerido para este proceso`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                    toast.error(`El idCorredor es requerido para este proceso`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 } else {
                     let formDataCorporate = {
@@ -276,16 +294,16 @@ const CreateTicketReferirCorporate = () => {
                     let verifyCorredorIndividualCustomer = await IndividualCustomerService.searchIndividualCustomerService(formDataCustomer.customerID)
                     // console.log(verifyIsCorredorCorporate)
                     // console.log(verifyCorredorIndividualCustomer)
-    
+
                     if (verifyIsCorredorCorporate.corporateInfo.empresa[0].idCuenta !== "") {
                         if (verifyIsCorredorCorporate.error) {
-                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                             // console.log(verifyIsCorredorCorporate.error)
                             setLoading(false)
                             return;
                         } else {
                             if (verifyIsCorredorCorporate.corporateInfo.empresa[0].corredor === false) {
-                                toast.error(`El corredor ingresado aún no puede referir`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+                                toast.error(`El corredor ingresado aún no puede referir`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                                 console.log(verifyIsCorredorCorporate)
                                 setLoading(false)
                                 return;
@@ -303,8 +321,8 @@ const CreateTicketReferirCorporate = () => {
                                         },
                                         serviceRequest: {
                                             crearTicket: {
-                                                processingTypeCode: "ZGCR",
-                                                LISTADECATEGORIAS_KUT: "741",
+                                                processingTypeCode: "ZAGC",
+                                                LISTADECATEGORIAS_KUT: "331",
                                                 serviceIssueCategoryID: "41000",
                                                 incidentServiceIssueCategoryID: "41300",
                                                 causeServiceIssueCategoryID: "",
@@ -322,23 +340,23 @@ const CreateTicketReferirCorporate = () => {
                                         if (selectedFile) sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                                         setLoading(false)
                                         localStorage.clear()
-                                        toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                        toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                         return navigate(`/`)
                                     } else {
-                                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                         setLoading(false)
                                     }
                                 } catch (error) {
-                                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                     setLoading(false)
                                 }
                             }
                         }
                     }
-    
+
                     if (verifyCorredorIndividualCustomer.corredor !== "") {
                         if (verifyCorredorIndividualCustomer.error) {
-                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+                            toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                             setLoading(false)
                             return;
                         } else {
@@ -374,23 +392,23 @@ const CreateTicketReferirCorporate = () => {
                                     if (selectedFile) sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                                     setLoading(false)
                                     localStorage.clear()
-                                    toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                    toast.success(`Se ha referido el cliente exitosamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                     return navigate(`/`)
                                 } else {
-                                    toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                    toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                     setLoading(false)
                                 }
                             } catch (error) {
-                                toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                                toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                                 setLoading(false)
                             }
                         }
                     }
-    
+
                     if (verifyIsCorredorCorporate.corporateInfo.empresa[0].idCuenta === "" ||
                         verifyCorredorIndividualCustomer.corredor === ""
                     ) {
-                        toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+                        toast.error(`Hubo un error al verificar el corredor`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
                         // console.log(verifyIsCorredorCorporate.error)
                         setLoading(false)
                     }
@@ -442,7 +460,7 @@ const CreateTicketReferirCorporate = () => {
                 // console.log(attachData)
                 return
             } else {
-                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
             }
         } catch (error) {
 
@@ -458,11 +476,11 @@ const CreateTicketReferirCorporate = () => {
 
         if (!isValidSize) {
             e.target.value = ''
-            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         }
         if (!isValidType) {
             e.target.value = ''
-            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         }
 
         const reader = new FileReader()
@@ -729,11 +747,17 @@ const CreateTicketReferirCorporate = () => {
                                                             {
                                                                 imageLoad && formError ?
                                                                     (
-                                                                        <button className='btn-submit-search  margin-auto' type='button' readOnly>Referir empresa</button>
+                                                                        <div>
+                                                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                            <button className='btn-submit-search  margin-auto' type='button' readOnly>Referir empresa</button>
+                                                                        </div>
                                                                     )
                                                                     :
                                                                     (
-                                                                        <button className='btn-submit-search  margin-center' type='submit'>Referir empresa</button>
+                                                                        <div>
+                                                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                            <button className='btn-submit-search  margin-center' type='submit'>Referir empresa</button>
+                                                                        </div>
                                                                     )
                                                             }
                                                         </div>

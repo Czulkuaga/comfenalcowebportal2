@@ -101,8 +101,8 @@ const FindTicketPQRS = () => {
                     <div className='comf-container'>
                         <div className=''>
                             <div className='comf-col-12 container-text-informativo'>
-                                <h2>Gestiona tu PQRSF</h2>
-                                <p className='comf-subtitulo'>En esta sesión podrás consultar tus PQRSF y calificar la gestión de la respuesta.</p>
+                                <h2>Consulta tu PQRSF</h2>
+                                <p className='comf-subtitulo'>En esta sección podrás consultar tus PQRSF y calificar la gestión de la respuesta.</p>
                             </div>
                         </div>
                     </div>

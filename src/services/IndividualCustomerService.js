@@ -1,13 +1,17 @@
 const IndividualCustomerService = {}
+//QA
+// const userApi = 'POFORMWEBC4C'
+// const passwordApi = 'd7d38Hnojmi7f6'
 
+//Poduccion
 const userApi = 'POFORMWEBC4C'
-const passwordApi = 'd7d38Hnojmi7f6'
+const passwordApi = 'xAXx6hyKU5wQT'
 
-const IndividualCustomerTaxNumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsCustomerC4C/Consulta/`
-const IndividualCustomerColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/Odata/DatosBasicos`
-const CreateIndividualCustomerColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/CreaClienteDatosBasicos`
-const CreateIndividualCustomerTaxNumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/IdentificacionFiscal`
-const ModificarClienteC4COdata_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsModificarClienteC4COData/`
+const IndividualCustomerTaxNumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsCustomerC4C/Consulta/`
+const IndividualCustomerColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/Odata/DatosBasicos`
+const CreateIndividualCustomerColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/CreaClienteDatosBasicos`
+const CreateIndividualCustomerTaxNumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/IdentificacionFiscal`
+const ModificarClienteC4COdata_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsModificarClienteC4COData/`
 
 IndividualCustomerService.searchIndividualCustomer = async (NumDoc, TipoDoc) => {
     

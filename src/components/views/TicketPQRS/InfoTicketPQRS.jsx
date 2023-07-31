@@ -52,6 +52,10 @@ const InfoTicketPQRS = () => {
     })
   }
 
+  const backToHome = () => {
+    navigate('/programa-referidos/corredor/buscar')
+  }
+
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
@@ -174,8 +178,8 @@ const InfoTicketPQRS = () => {
           <div className='comf-container'>
             <div className=''>
               <div className='comf-col-12 container-text-informativo'>
-                <h2>Consulta PQRS</h2>
-                <p className='comf-subtitulo'>En esta sesión podrás verificar el estado de tu PQRSF y calificar la gestión de la respuesta.</p>
+                <h2>Consulta tu PQRSF</h2>
+                <p className='comf-subtitulo'>En esta sección podrás verificar el estado de tu PQRSF y calificar la gestión de la respuesta.</p>
               </div>
             </div>
           </div>
@@ -186,7 +190,7 @@ const InfoTicketPQRS = () => {
 
                 <div className='cart-header margin-center'>
                   
-                  <h2 className='title-form'>Consulta PQRSF</h2>
+                  <h2 className='title-form'>Consulta tu PQRSF</h2>
                   {
                     formError && <h4 className='errorForm'>Hubo un error en el envío del formulario, intenta de nuevo o contáctate con nosotros</h4>
                   }
@@ -315,11 +319,17 @@ const InfoTicketPQRS = () => {
                                     {
                                       formError ?
                                         (
-                                          <button className='btn-submit-search  margin-auto' type='button' readOnly>Calificar PQRS</button>
+                                          <div>
+                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                            <button className='btn-submit-search  margin-auto' type='button' readOnly>Calificar PQRS</button>
+                                          </div>
                                         )
                                         :
                                         (
-                                          <button className='btn-submit-search  margin-center' type='submit'>Calificar PQRS</button>
+                                          <div>
+                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                            <button className='btn-submit-search  margin-center' type='submit'>Calificar PQRS</button>
+                                          </div>
                                         )
                                     }
                                   </div>

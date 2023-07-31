@@ -32,10 +32,10 @@ const FindClient = () => {
     const [errors,setErrors] = React.useState({})
 
     const [typeIdentification, setTypeIdentification] = React.useState(defaultFormData.typeIdentification)
-    const [errorTypeIdentification, setErrorTypeIdentification] = React.useState(false)
+    // const [errorTypeIdentification, setErrorTypeIdentification] = React.useState(false)
 
     const [numberIdentification, setNumberIdentification] = React.useState(defaultFormData.numberIdentification)
-    const [errorNumberIdentification, setErrorNumberIdentificarion] = React.useState(false)
+    // const [errorNumberIdentification, setErrorNumberIdentificarion] = React.useState(false)
 
     const [formError, setFormError] = React.useState(false)
 
@@ -45,21 +45,21 @@ const FindClient = () => {
 
     //Functions
 
-    const functionValidationData = (data, typeFormComponent) => {
-        let formComponentValidation = false
-        switch (typeFormComponent) {
-            case 'type-identification':
-                if (typeof (data) !== 'string' && data === "") {
-                    formComponentValidation = true
-                    return formComponentValidation
-                } else {
-                    formComponentValidation = false
-                    return formComponentValidation
-                }
-            default:
-                return formComponentValidation
-        }
-    }
+    // const functionValidationData = (data, typeFormComponent) => {
+    //     let formComponentValidation = false
+    //     switch (typeFormComponent) {
+    //         case 'type-identification':
+    //             if (typeof (data) !== 'string' && data === "") {
+    //                 formComponentValidation = true
+    //                 return formComponentValidation
+    //             } else {
+    //                 formComponentValidation = false
+    //                 return formComponentValidation
+    //             }
+    //         default:
+    //             return formComponentValidation
+    //     }
+    // }
 
     const handleChange = (e) => {
         const newErrors = {};
@@ -278,8 +278,8 @@ const FindClient = () => {
             NumDoc: numberIdentification,
         }
 
-        if (typeIdentification === "") newErrors.typeIdentification = "El tipo de identificación es requerido"
-        if (numberIdentification === "") newErrors.numberIdentificaction = "El número de identificación es requerido"
+        if (typeIdentification === "") newErrors.typeIdentification = "¿Cuál es tu tipo de identificación? es requerido"
+        if (numberIdentification === "") newErrors.numberIdentificaction = "¿Cuál es tu número de identificación? es requerido"
 
         if (numberIdentification !== "") {
             let isValidNumberIdentification = numberIdentification.match(validNumber)
@@ -297,7 +297,6 @@ const FindClient = () => {
                 setErrors({});
             }, 7000);
         }
-
     }
 
     const postData = async (data) => {
@@ -488,7 +487,7 @@ const FindClient = () => {
                                                 <div>
                                                     <div className='form-component'>
                                                         {
-                                                            errorNumberIdentification ?
+                                                            Object.keys(errors).length !== 0 ?
                                                                 (
                                                                     <button className='btn-submit-search' type='button' readOnly>Consultar usuario</button>
                                                                 )

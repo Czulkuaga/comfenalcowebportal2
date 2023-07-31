@@ -314,12 +314,14 @@ const FindCorporate = () => {
             if (verifyIsCorredorCorporate.error) {
                 newErrors.formError = "Hubo un error al verificar el corredor"
                 console.log(verifyIsCorredorCorporate)
+                setErrors(newErrors)
                 setLoading(false)
                 return;
             } else {
                 if (verifyIsCorredorCorporate.corporateInfo.empresa[0].corredor === false) {
                     newErrors.formError = "El corredor ingresado aún no puede referir"
                     console.log(verifyIsCorredorCorporate)
+                    setErrors(newErrors)
                     setLoading(false)
                     return;
                 } else {
@@ -329,6 +331,7 @@ const FindCorporate = () => {
         } else if (verifyCorredorIndividualCustomer.corredor !== "") {
             if (verifyCorredorIndividualCustomer.error) {
                 newErrors.formError = "Hubo un error al verificar el corredor"
+                setErrors(newErrors)
                 setLoading(false)
                 return;
             } else {
@@ -336,6 +339,7 @@ const FindCorporate = () => {
             }
         } else {
             newErrors.formError = "El corredor no existe"
+            setErrors(newErrors)
             setLoading(false)
         }
 

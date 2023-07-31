@@ -108,6 +108,10 @@ const TicketInscriptionCorredor = () => {
         typeClient.splice(0, typeClient.lenght)
     }
 
+    const backToHome = () => {
+        navigate('/programa-referidos/corredor/buscar')
+    }
+
     //Functions
     const convertDate = (date) => {
         let day = new Date(date)
@@ -143,51 +147,44 @@ const TicketInscriptionCorredor = () => {
     }, [getOneTypeIdentification])
 
     const gettipoCliente = React.useCallback(async () => {
-        await fetch(`${Server}/api/master-client-type/get`, {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(res => {
-                //console.log(res)
-                if (res.code === 'success') {
-                    CleaningTipoCliente()
-                    setTipoCliente(res.tipocliente)
-                    res.tipocliente.map((tipo) => (
-                        typeClient.push(tipo)
-                    ))
-                }
-            })
+        try {
+            let getClientType = await ApiService.GetClientType()
+            if (getClientType.code === 'success') {
+                CleaningTipoCliente()
+                setTipoCliente(getClientType.clientType)
+                getClientType.clientType.map((tipo) => (
+                    typeClient.push(tipo)
+                ))
+            }
+        } catch (error) {
+            setFormError(true)
+            console.log(error)
+        }
     }, [])
 
-    const gettipoSector = React.useCallback(async () => {
-        await fetch(`${Server}/api/master-sector-type/get`, {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(res => {
-                //console.log(res)
-                if (res.code === 'success') {
-                    setTipoSector(res.tiposector)
-                    res.tiposector.map((tipo) => (
-                        typeSector.push(tipo)
-                    ))
-                }
-            })
-    }, [])
+    const gettipoSector = async () => {
+        try {
+            let getSectorType = await ApiService.GetSectorType()
+            // console.log(getSectorType)
+            if (getSectorType) {
+                CleaningTipoCliente()
+                setTipoSector(getSectorType.getSectorType)
+                getSectorType.getSectorType.map((tipo) => (
+                    typeSector.push(tipo)
+                ))
+            }
+        } catch (error) {
+            const newErrors = {}
+            newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+            console.log(error)
+            setErrors(newErrors)
+        }
+    }
 
     const getTipoGenero = React.useCallback(async () => {
         try {
             let getGenderType = await ApiService.getGenderType()
             if (getGenderType.code === 'success') {
-                // console.log(getGenderType.genderType)
                 CleaningTipoCliente()
                 setGenero(getGenderType.genderType)
                 getGenderType.genderType.map((genero) => (
@@ -348,7 +345,7 @@ const TicketInscriptionCorredor = () => {
 
         if (typeUser === 'NIT') {
             if (formDataInfoCorporate.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
-            
+
             if (Object.keys(newErrors).length === 0) {
                 try {
                     let formData = {
@@ -363,7 +360,7 @@ const TicketInscriptionCorredor = () => {
                         },
                         serviceRequest: {
                             crearTicket: {
-                                processingTypeCode: "ZGCR",
+                                processingTypeCode: "ZAGC",
                                 LISTADECATEGORIAS_KUT: "671",
                                 serviceIssueCategoryID: "39000",
                                 incidentServiceIssueCategoryID: "39100",
@@ -382,14 +379,14 @@ const TicketInscriptionCorredor = () => {
                         sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                     }
                 } catch (error) {
-                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 }
             } else {
@@ -401,8 +398,8 @@ const TicketInscriptionCorredor = () => {
             }
 
         } else {
-            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si debes continuar, acepta los términos y condiciones y tratamiento de datos personales';
-            
+            if (formDataInfoCustomer.aceptTerms === false) newErrors.aceptTerms = 'Si deseas continuar, acepta los términos y condiciones y tratamiento de datos personales';
+
             if (Object.keys(newErrors).length === 0) {
                 try {
                     let formData = {
@@ -417,7 +414,7 @@ const TicketInscriptionCorredor = () => {
                         },
                         serviceRequest: {
                             crearTicket: {
-                                processingTypeCode: "ZGCR",
+                                processingTypeCode: "ZAGC",
                                 LISTADECATEGORIAS_KUT: "671",
                                 serviceIssueCategoryID: "39000",
                                 incidentServiceIssueCategoryID: "39100",
@@ -436,17 +433,17 @@ const TicketInscriptionCorredor = () => {
                         sendAttach(inscriptionCorporate.corporateInfo.crearTicket.ID)
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.success(`Se ha creado el ticket exitosamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.error(`Hubo un error al intentar crear el ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                     }
                 } catch (error) {
-                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER})
+                    toast.error(`Hubo un error en el servicio de ticket`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 }
-            }else{
+            } else {
                 setLoading(false)
                 setErrors(newErrors);
                 setTimeout(() => {
@@ -493,7 +490,7 @@ const TicketInscriptionCorredor = () => {
             if (!attachData.error) {
                 console.log(attachData)
             } else {
-                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                toast.error(`Hubo un error al enviar el adjunto`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
             }
         } catch (error) {
 
@@ -509,11 +506,11 @@ const TicketInscriptionCorredor = () => {
 
         if (!isValidSize) {
             e.target.value = ''
-            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+            return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         }
         if (!isValidType) {
             e.target.value = ''
-            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+            return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
         }
 
         const reader = new FileReader()
@@ -739,7 +736,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='position-relative'>
 
                                                                     <div className={'form-component'}>
-                                                                        <h4>Archivos adjunto:</h4>
+                                                                        <h4>Archivo adjunto:</h4>
                                                                         <h5>Formatos válidos .pdf (Máx. 50Mb)</h5>
                                                                         <h5>El sistema permite adjuntar unicamente un archivo.</h5>
                                                                         <input onChange={(e) => handleInputFile(e)} type="file" id='file' name='file' className='file input-form' accept='.pdf' />
@@ -773,11 +770,17 @@ const TicketInscriptionCorredor = () => {
                                                                 {
                                                                     Object.keys(errors).length !== 0 ?
                                                                         (
-                                                                            <button className='btn-submit-search margin-auto' type='button' readOnly>Crear Corredor</button>
+                                                                            <div>
+                                                                                <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                                <button className='btn-submit-search margin-auto' type='button' readOnly>Crear Corredor</button>
+                                                                            </div>
                                                                         )
                                                                         :
                                                                         (
-                                                                            <button className='btn-submit-search margin-center' type='submit'>Crear Corredor</button>
+                                                                            <div>
+                                                                                <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                                <button className='btn-submit-search margin-center' type='submit'>Crear Corredor</button>
+                                                                            </div>
                                                                         )
                                                                 }
                                                             </div>
@@ -1009,7 +1012,7 @@ const TicketInscriptionCorredor = () => {
                                                                 <div className='fila-col'>
                                                                     <div className='position-relative'>
                                                                         <div className={'form-component'}>
-                                                                            <h4>Archivos adjunto:</h4>
+                                                                            <h4>Archivo adjunto:</h4>
                                                                             <h5>Formatos válidos .pdf (Máx. 50Mb)</h5>
                                                                             <h5>El sistema permite adjuntar unicamente un archivo.</h5>
                                                                             <input onChange={(e) => handleInputFile(e)} type="file" id='file' name='file' className='file input-form' accept='.pdf' />
@@ -1029,11 +1032,17 @@ const TicketInscriptionCorredor = () => {
                                                                 {
                                                                     Object.keys(errors).length !== 0 ?
                                                                         (
-                                                                            <button className='btn-submit-search margin-auto' type='button' readOnly>Crear Corredor</button>
+                                                                            <div>
+                                                                                <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                                <button className='btn-submit-search margin-auto' type='button' readOnly>Crear Corredor</button>
+                                                                            </div>
                                                                         )
                                                                         :
                                                                         (
-                                                                            <button className='btn-submit-search margin-auto' type='submit'>Crear Corredor</button>
+                                                                            <div>
+                                                                                <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                                <button className='btn-submit-search margin-auto' type='submit'>Crear Corredor</button>
+                                                                            </div>
                                                                         )
                                                                 }
                                                             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../App.css'
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from "react-router-dom";
-import Server from '../../../config/Server'
+// import Server from '../../../config/Server'
 import { format } from "date-fns";
 
 //import CustomComponents
@@ -18,32 +18,6 @@ const rows = []
 const typeClient = []
 // const typeSector = []
 const genderList = []
-// const tipoIdentFiscal = [
-//     {
-//         value: '11',
-//         label: "REGISTRO DE NACIMIENTO"
-//     },
-//     {
-//         value: '12',
-//         label: 'TARJETA DE IDENTIDAD'
-//     },
-//     {
-//         value: '13',
-//         label: 'CÉDULA DE CIUDADANÍA'
-//     },
-//     {
-//         value: '16',
-//         label: 'PERMISO ESPECIAL VENEZOLANO'
-//     },
-//     {
-//         value: '21',
-//         label: 'TARJETA DE EXTRANJERÍA'
-//     },
-//     {
-//         value: '41',
-//         label: 'PASAPORTE'
-//     }
-// ]
 
 const UpdateClientByUpdateData = () => {
     //RegExpre
@@ -71,7 +45,7 @@ const UpdateClientByUpdateData = () => {
     const [formError, setFormError] = React.useState(false)
     const [finderTypeDoc, setFinderTypeDoc] = React.useState("")
     const [tipoIdentificacion, setTipoIdentificacion] = React.useState([])
-    const [tipoCliente, setTipoCliente] = React.useState([])
+    // const [tipoCliente, setTipoCliente] = React.useState([])
     // const [tipoSector, setTipoSector] = React.useState([])
     const [genero, setGenero] = React.useState([])
     const [formDataInfoCustomer, setFormDataInfoCustomer] = React.useState({
@@ -94,6 +68,10 @@ const UpdateClientByUpdateData = () => {
     const CleaningTipoCliente = () => {
         typeClient.splice(0, typeClient.lenght)
     }
+
+    const backToHome = () => {
+        navigate('/programa-referidos/clientes/find-client-by-update')
+      }
 
     //Functions
     const convertDate = (date) => {
@@ -129,32 +107,28 @@ const UpdateClientByUpdateData = () => {
         }
     }, [getOneTypeIdentification])
 
-    const gettipoCliente = React.useCallback(async () => {
-        await fetch(`${Server}/api/master-client-type/get`, {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            method: "GET",
-        })
-            .then(response => response.json())
-            .then(res => {
-                //console.log(res)
-                if (res.code === 'success') {
-                    CleaningTipoCliente()
-                    setTipoCliente(res.tipocliente)
-                    res.tipocliente.map((tipo) => (
-                        typeClient.push(tipo)
-                    ))
-                }
-            })
-    }, [])
+    // const gettipoCliente = React.useCallback(async () => {
+    //     try {
+    //         let getTipoCliente = await ApiService.GetClientType()
+    //         if (getTipoCliente) {
+    //             CleaningTipoCliente()
+    //             setTipoCliente(getTipoCliente.clientType)
+    //             getTipoCliente.clientType.map((tipo) => (
+    //                 typeClient.push(tipo)
+    //             ))
+    //         }
+    //     } catch (error) {
+    //         const newErrors = {}
+    //         newErrors.formError = "Hubo un error al traer la información del servicio, recarga el sitio e intenta de nuevo."
+    //         console.log(error)
+    //         setErrors(newErrors)
+    //     }
+    // }, [])
 
     const getTipoGenero = React.useCallback(async () => {
         try {
             let getGenderType = await ApiService.getGenderType()
             if (getGenderType.code === 'success') {
-                // console.log(getGenderType.genderType)
                 CleaningTipoCliente()
                 setGenero(getGenderType.genderType)
                 getGenderType.genderType.map((genero) => (
@@ -189,7 +163,7 @@ const UpdateClientByUpdateData = () => {
                             gender: getIndividualCustomerData.codigogenero,
                             phone: JSON.stringify(getIndividualCustomerData.mobile),
                             emailUser: getIndividualCustomerData.email,
-                            aceptTerms:false,
+                            aceptTerms: false,
                             objectID: IndividualCustomerData.IndividualCustomerTaxNumberCollection.IndividualCustomerTaxNumber.ParentObjectID
                         })
                         setLoading(false)
@@ -279,20 +253,20 @@ const UpdateClientByUpdateData = () => {
                     if (updateIndividualCustomer.code !== "Error500") {
                         setLoading(false)
                         localStorage.clear()
-                        toast.success(`Se ha actualizado el cliente exitosamente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.success(`Se ha actualizado el cliente exitosamente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         navigate(`/`)
                     } else {
-                        toast.error(`Hubo un error al intentar actualizar el cliente`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                        toast.error(`Hubo un error al intentar actualizar el cliente`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                         setLoading(false)
                         return;
                     }
                 } catch (error) {
                     console.log(error)
-                    toast.error(`Hubo un error en el servicio de actualizar`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                    toast.error(`Hubo un error en el servicio de actualizar`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                     setLoading(false)
                 }
             } else {
-                toast.error(`No se pudo actualizar la información`, { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
+                toast.error(`No se pudo actualizar la información`, { autoClose: 2000, position: toast.POSITION.TOP_CENTER })
                 setLoading(false)
                 return;
             }
@@ -315,9 +289,9 @@ const UpdateClientByUpdateData = () => {
         getTipoIdentificacion()
     }, [getTipoIdentificacion])
 
-    React.useState(() => {
-        gettipoCliente()
-    }, [gettipoCliente])
+    // React.useState(() => {
+    //     gettipoCliente()
+    // }, [gettipoCliente])
 
     React.useState(() => {
         if (typeUser !== 'NIT') {
@@ -393,7 +367,7 @@ const UpdateClientByUpdateData = () => {
                                                             <div className='position-relative'>
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="firstName" className='text-label label-select-form'>Primer nombre *</span>
+                                                                    <span htmlFor="firstName" className='text-label label-select-form'>¿Cuál es tu primer nombre? *</span>
                                                                     <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.firstName} type='string' id='firstName' name='firstName' className='primer-nombre input-form disabledTextInput' />
                                                                 </div>
                                                             </div>
@@ -403,7 +377,7 @@ const UpdateClientByUpdateData = () => {
                                                             <div className='position-relative'>
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="secondName" className='text-label label-select-form'>Segundo Nombre</span>
+                                                                    <span htmlFor="secondName" className='text-label label-select-form'>¿Cuál es tu segundo nombre?</span>
                                                                     <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.secondName} type='string' id='secondName' name='secondName' className='segundo-nombre input-form disabledTextInput' />
                                                                 </div>
                                                             </div>
@@ -413,7 +387,7 @@ const UpdateClientByUpdateData = () => {
                                                             <div className='position-relative'>
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="lastName" className='text-label label-select-form'>Primer Apellido *</span>
+                                                                    <span htmlFor="lastName" className='text-label label-select-form'>¿Cuál es tu primer apellido? *</span>
                                                                     <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.lastName} type='string' id='lastName' name='lastName' className='primer-apellido input-form disabledTextInput' />
                                                                 </div>
                                                             </div>
@@ -423,7 +397,7 @@ const UpdateClientByUpdateData = () => {
                                                             <div className='position-relative'>
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="secondLastName" className='text-label label-select-form'>Segundo Apellido</span>
+                                                                    <span htmlFor="secondLastName" className='text-label label-select-form'>¿Cuál es tu segundo apellido?</span>
                                                                     <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.secondLastName} type='string' id='secondLastName' name='secondLastName' className='segundo-apellido input-form disabledTextInput' />
                                                                 </div>
                                                             </div>
@@ -438,7 +412,7 @@ const UpdateClientByUpdateData = () => {
                                                             <div className='position-relative'>
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="birthday" className='text-label label-select-form'>Fecha de nacimiento *</span>
+                                                                    <span htmlFor="birthday" className='text-label label-select-form'>¿Cuál es tu fecha de nacimiento? *</span>
                                                                     <input readOnly onChange={(e) => inputChangeHandler(e)} value={formDataInfoCustomer.birthday ? convertDate(formDataInfoCustomer.birthday) : ""} type='date' id='birthday' name='birthday' className='fecha-nacimiento input-form disabledTextInput' />
                                                                 </div>
 
@@ -450,16 +424,16 @@ const UpdateClientByUpdateData = () => {
 
                                                                 <div className={'form-component'}>
 
-                                                                    <span htmlFor="gender" className='text-label label-select-form'>Género *</span>
+                                                                    <span htmlFor="gender" className='text-label label-select-form'>¿Cuál es tu género? *</span>
                                                                     <select readOnly onChange={(e) => inputChangeHandler(e)} id='gender' value={formDataInfoCustomer.gender} name='gender' className='genero custom-select custom-select-lg disabledTextInput'>
                                                                         {
                                                                             genero.length > 0 &&
                                                                             <>
-                                                                                {formDataInfoCustomer.gender === 0 && <option value={`${genero[0].code}`}>{genero[0].description}</option>}
-                                                                                {formDataInfoCustomer.gender === 1 && <option value={`${genero[1].code}`}>{genero[1].description}</option>}
-                                                                                {formDataInfoCustomer.gender === 2 && <option value={`${genero[2].code}`}>{genero[2].description}</option>}
-                                                                                {formDataInfoCustomer.gender === 3 && <option value={`${genero[3].code}`}>{genero[3].description}</option>}
-                                                                                {formDataInfoCustomer.gender === 9 && <option value={`${genero[4].code}`}>{genero[4].description}</option>}
+                                                                                {formDataInfoCustomer.gender === 0 && <option value={`${genero[0].code}`}>{genero[0].descripcion}</option>}
+                                                                                {formDataInfoCustomer.gender === 1 && <option value={`${genero[1].code}`}>{genero[1].descripcion}</option>}
+                                                                                {formDataInfoCustomer.gender === 2 && <option value={`${genero[2].code}`}>{genero[2].descripcion}</option>}
+                                                                                {formDataInfoCustomer.gender === 3 && <option value={`${genero[3].code}`}>{genero[3].descripcion}</option>}
+                                                                                {formDataInfoCustomer.gender === 9 && <option value={`${genero[4].code}`}>{genero[4].descripcion}</option>}
                                                                             </>
 
                                                                         }
@@ -518,11 +492,17 @@ const UpdateClientByUpdateData = () => {
                                                             {
                                                                 Object.keys(errors).length !== 0 ?
                                                                     (
-                                                                        <button className='btn-submit-search  margin-auto' type='button' readOnly>Actualizar Información</button>
+                                                                        <div>
+                                                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                            <button className='btn-submit-search  margin-auto' type='button' readOnly>Actualizar Información</button>
+                                                                        </div>
                                                                     )
                                                                     :
                                                                     (
-                                                                        <button className='btn-submit-search  margin-center' type='submit'>Actualizar Información</button>
+                                                                        <div>
+                                                                            <button className='btn-cancel-back margin-auto' type='button' onClick={() => backToHome()}>Cancelar</button>
+                                                                            <button className='btn-submit-search  margin-center' type='submit'>Actualizar Información</button>
+                                                                        </div>
                                                                     )
                                                             }
                                                         </div>

@@ -422,7 +422,7 @@ const CreateIndividualCustomer = () => {
                                     {
                                       genero.length > 0 &&
                                       genero.map((tipo) => (
-                                        <option key={tipo.code} value={`${tipo.code}`}>{tipo.description}</option>
+                                        <option key={tipo.code} value={`${tipo.code}`}>{tipo.descripcion}</option>
                                       ))
 
                                     }

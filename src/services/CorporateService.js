@@ -1,15 +1,32 @@
 const CorporateService = {}
 
-const CorporateAccountTaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Consulta/`
-const CorporateAccountData_API_URI = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Consulta/`
-const CorporateAccountColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
-const CorporateAccounttaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
-const AccountoColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
-const findTeamCorporate_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsConsultaEquipoCliente/Consulta/`
-const fetchContact_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsConsultaContacto/`
+//QA
 
+// const CorporateAccountTaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Consulta/`
+// const CorporateAccountData_API_URI = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Consulta/`
+// const CorporateAccountColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
+// const CorporateAccounttaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
+// const AccountoColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsEmpresaC4COData/Creacion/`
+// const findTeamCorporate_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsConsultaEquipoCliente/Consulta/`
+// const fetchContact_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsConsultaContacto/`
+
+//Producción
+
+const CorporateAccountTaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsEmpresaC4COData/Consulta/`
+const CorporateAccountData_API_URI = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsEmpresaC4COData/Consulta/`
+const CorporateAccountColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsEmpresaC4COData/Creacion/`
+const CorporateAccounttaxnumberColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsEmpresaC4COData/Creacion/`
+const AccountoColletion_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsEmpresaC4COData/Creacion/`
+const findTeamCorporate_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsConsultaEquipoCliente/Consulta/`
+const fetchContact_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsConsultaContacto/`
+
+//QA
+// const Username = 'POFORMWEBC4C'
+// const Password = 'd7d38Hnojmi7f6'
+
+//Producción
 const Username = 'POFORMWEBC4C'
-const Password = 'd7d38Hnojmi7f6'
+const Password = 'xAXx6hyKU5wQT'
 
 CorporateService.findCorporate = async (formData) => {
     //basic Authentication

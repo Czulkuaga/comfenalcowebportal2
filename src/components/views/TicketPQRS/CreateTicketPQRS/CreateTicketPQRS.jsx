@@ -2,7 +2,7 @@ import React from 'react'
 import '../../../../App.css'
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from "react-router-dom";
-import CategoryData from '../../../../assets/CategoryData.json'
+// import CategoryData from '../../../../assets/CategoryData.json'
 import { RemoveTilde } from '../../../../utils/functions'
 
 //import CustomComponents
@@ -11,48 +11,49 @@ import Spinner from '../../../custom/Spinner';
 //Import Services
 import TicketService from '../../../../services/TicketService'
 import CorporateService from '../../../../services/CorporateService';
+import ApiService from '../../../../services/ApiService';
 
-const TipoTicketPQRS = [
-  {
-    value: "",
-    label: ""
-  },
-  {
-    value: "681",
-    label: "Asesoría"
-  },
-  {
-    value: "701",
-    label: "Sugerencia"
-  },
-  {
-    value: "691",
-    label: "Reclamo"
-  },
-  {
-    value: "711",
-    label: "Felicitación"
-  },
-]
+// const TipoTicketPQRS = [
+//   {
+//     value: "",
+//     label: ""
+//   },
+//   {
+//     value: "681",
+//     label: "Asesoría"
+//   },
+//   {
+//     value: "701",
+//     label: "Sugerencia"
+//   },
+//   {
+//     value: "691",
+//     label: "Reclamo"
+//   },
+//   {
+//     value: "711",
+//     label: "Felicitación"
+//   },
+// ]
 
-const SuperCategory = [
-  {
-    value: "",
-    label: ""
-  },
-  {
-    label: "CLUB LA PLAYA",
-    value: "45000"
-  },
-  {
-    label: "UNIDAD REGIONAL SUROESTE",
-    value: "44000"
-  },
-  {
-    label: "UNIDAD REGIONAL URABA",
-    value: "43000"
-  }
-]
+// const SuperCategory = [
+//   {
+//     value: "",
+//     label: ""
+//   },
+//   {
+//     label: "CLUB LA PLAYA",
+//     value: "45000"
+//   },
+//   {
+//     label: "UNIDAD REGIONAL SUROESTE",
+//     value: "44000"
+//   },
+//   {
+//     label: "UNIDAD REGIONAL URABA",
+//     value: "43000"
+//   }
+// ]
 
 const CanalComunicacion = [
   {
@@ -111,9 +112,12 @@ const CreateTicketPQRS = () => {
   //useState
   const navigate = useNavigate()
   const [errors, setErrors] = React.useState({})
+  const [ticketType, setTicketType] = React.useState([])
+  const [serviceCategory, setServiceCategory] = React.useState([])
+  const [serviceIssueCategory, setServiceIssueCategory] = React.useState([])
   const [serviceIssue, setServiceIssue] = React.useState([])
   const [selectedFile, setSelectedFile] = React.useState(null)
-  const [imageLoad, setImageLoad] = React.useState(false)
+  // const [imageLoad, setImageLoad] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [formError, setFormError] = React.useState(false)
   const [contactInfo, setContactInfo] = React.useState({})
@@ -135,15 +139,23 @@ const CreateTicketPQRS = () => {
 
   //Funsctions
 
+  const backToHome = () => {
+    navigate('/programa-referidos/pqrs/find-client')
+  }
+
   const handlerSelectedCategory = React.useCallback(() => {
     if (formInfo.whereTicket !== "") {
       let category = formInfo.whereTicket
+      let newIssue = serviceIssueCategory.filter((cat) => JSON.parse(cat.category_code) === JSON.parse(category))
+      // console.log(category)
+      // console.log(newIssue)
+      // console.log(serviceIssueCategory)
       // console.log(CategoryData[category])
-      setServiceIssue(CategoryData[category])
+      setServiceIssue(newIssue)
     } else {
       setServiceIssue([])
     }
-  }, [formInfo.whereTicket])
+  }, [formInfo.whereTicket, serviceIssueCategory])
 
   const inputChangeHandler = e => {
     const target = e.target;
@@ -179,12 +191,12 @@ const CreateTicketPQRS = () => {
           let isValidNumContact = formInfo.phone.match(isValidNumCont)
 
           if (isValidEmail === null) {
-            toast.error(`El correo electrónico no es válido`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
+            toast.error(`El correo electrónico no es válido`, { autoClose: 4000, position: toast.POSITION.TOP_CENTER })
             setLoading(false)
             return
           }
           if (isValidNumContact === null) {
-            toast.error(`El número de contácto no es válido`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
+            toast.error(`El número de contácto no es válido`, { autoClose: 4000, position: toast.POSITION.TOP_CENTER })
             setLoading(false)
             return
           }
@@ -251,10 +263,10 @@ const CreateTicketPQRS = () => {
               if (selectedFile) sendAttach(ticketPQRS.corporateInfo.crearTicket.ID)
               setLoading(false)
               localStorage.clear()
-              toast.success(`Su PQRSF fue radicada. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000 })
+              toast.success(`Su PQRSF fue radicada con el ID #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000 })
               return navigate(`/`)
             } catch (error) {
-              toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+              toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
               setFormError(true)
               console.log(error)
               setLoading(false)
@@ -292,10 +304,10 @@ const CreateTicketPQRS = () => {
             if (selectedFile) sendAttach(ticketPQRS.corporateInfo.crearTicket.ID)
             setLoading(false)
             localStorage.clear()
-            toast.success(`Su PQRSF fue radicada con el número #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
+            toast.success(`Su PQRSF fue radicada con el ID #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000, position: toast.POSITION.TOP_CENTER })
             return navigate(`/`)
           } catch (error) {
-            toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+            toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
             setFormError(true)
             console.log(error)
             setLoading(false)
@@ -334,10 +346,10 @@ const CreateTicketPQRS = () => {
           if (selectedFile) sendAttach(ticketPQRS.corporateInfo.crearTicket.ID)
           setLoading(false)
           localStorage.clear()
-          toast.success(`Su PQRSF fue radicada con el numero #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000,position: toast.POSITION.TOP_CENTER })
+          toast.success(`Su PQRSF fue radicada con el numero #${ticketPQRS.corporateInfo.crearTicket.ID}. Próximamente nos estaremos comunicando con usted`, { autoClose: 4000, position: toast.POSITION.TOP_CENTER })
           return navigate(`/`)
         } catch (error) {
-          toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000,position: toast.POSITION.TOP_CENTER })
+          toast.error(`Hubo un error al registrar su PQRSF`, { autoClose: 3000, position: toast.POSITION.TOP_CENTER })
           setFormError(true)
           console.log(error)
           setLoading(false)
@@ -410,26 +422,77 @@ const CreateTicketPQRS = () => {
 
     if (!isValidSize) {
       e.target.value = ''
-      return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000 })
+      return toast.error('El archivo es demasiado pesado, máximo 5mb', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
     }
     if (!isValidType) {
       e.target.value = ''
-      return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000 })
+      return toast.error('Sólo se admiten formatos PDF', { autoClose: 2000,position: toast.POSITION.TOP_CENTER })
     }
 
     const reader = new FileReader()
     reader.onloadstart = () => {
-      setImageLoad(true)
+      setLoading(true)
     }
     reader.onloadend = () => {
       console.log(reader.result)
-      setImageLoad(false)
+      setLoading(false)
       setSelectedFile(reader.result)
     }
     reader.readAsDataURL(file)
 
     // handleFormChange()
   }
+
+  const getTypePQRSF = React.useCallback(async () => {
+    try {
+      let getTypePQRSF = await ApiService.GetSuperPQRSF()
+      // console.log(getTypePQRSF)
+      if(getTypePQRSF){
+        setTicketType(getTypePQRSF.getSuperPQRSF)
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al tarer la información del servicio, recarga la página e intenta de nuevo."
+      setErrors(newErrors)
+      console.log(error)
+    }
+  },[])
+
+  const getServiceCategory = React.useCallback(async() => {
+    try {
+      let getServiceCategoryPQRSF = await ApiService.GetServiceCategoryPQRSF()
+      // console.log(getServiceCategoryPQRSF)
+      if(getServiceCategoryPQRSF){
+        setServiceCategory(getServiceCategoryPQRSF.getServiceCategoryPQRSF)
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al tarer la información del servicio, recarga la página e intenta de nuevo."
+      setErrors(newErrors)
+      console.log(error)
+    }
+  },[])
+
+  const getServiceIssueCategory = React.useCallback(async() => {
+    try {
+      let getServiceIssueCategory = await ApiService.GetIssueMasterCategory()
+      // console.log(getServiceCategoryPQRSF)
+      if(getServiceIssueCategory){
+        setServiceIssueCategory(getServiceIssueCategory.getIssueMasterCategory)
+      }
+    } catch (error) {
+      const newErrors = {}
+      newErrors.formError = "Hubo un error al tarer la información del servicio, recarga la página e intenta de nuevo."
+      setErrors(newErrors)
+      console.log(error)
+    }
+  },[])
+
+  React.useEffect(() => {
+    getTypePQRSF()
+    getServiceCategory()
+    getServiceIssueCategory()
+  },[getTypePQRSF,getServiceCategory, getServiceIssueCategory])
 
   React.useEffect(() => {
     handlerSelectedCategory()
@@ -475,7 +538,7 @@ const CreateTicketPQRS = () => {
       }
       getContactData()
     }
-  }, [])
+  }, [params, typeUser])
 
   return (
     <div className="App">
@@ -486,7 +549,7 @@ const CreateTicketPQRS = () => {
             <div className='comf-col-12 container-text-informativo'>
               <h2>PETICIONES, QUEJAS, RECLAMOS, SUGERENCIAS, ASESORIAS Y FELICITACIONES</h2>
               <p className='comf-subtitulo'>Tu opinión es muy importante para nosotros!</p>
-              <p className='comf-subtitulo'>Queremos conocer tu experiencia con nuestros servicios, programas y subsidios. En este formulario puedes crear tu solicitud de PQRSAF.</p>
+              <p className='comf-subtitulo'>Queremos conocer tu experiencia con nuestros servicios, programas y subsidios. En este formulario puedes crear tu solicitud de PQRSF.</p>
             </div>
 
           </div>
@@ -581,11 +644,11 @@ const CreateTicketPQRS = () => {
 
                                 <span htmlFor="tipoTicket" className="text-label label-select-form">¿Cuál es tu tipo de manifestación? *</span>
                                 <select onChange={(e) => inputChangeHandler(e)} id='tipoTicket' value={formInfo.tipoTicket} name='tipoTicket' className='type-identification custom-select custom-select-lg'>
-
+                                  <option value=""></option>
                                   {
-                                    TipoTicketPQRS.length > 0 &&
-                                    TipoTicketPQRS.map((tipo, i) => (
-                                      <option key={i} value={`${tipo.value}`}>{tipo.label}</option>
+                                    ticketType.length > 0 &&
+                                    ticketType.map((tipo, i) => (
+                                      <option key={i} value={`${tipo.code}`}>{tipo.desc}</option>
                                     ))
                                   }
                                 </select>
@@ -598,10 +661,11 @@ const CreateTicketPQRS = () => {
 
                                   <span htmlFor="whereTicket" className="text-label label-select-form">¿En qué sede te ocurrió? *</span>
                                   <select onChange={(e) => inputChangeHandler(e)} id='whereTicket' value={formInfo.whereTicket} name='whereTicket' className='type-identification custom-select custom-select-lg'>
+                                    <option value=""></option>
                                     {
-                                      SuperCategory.length > 0 &&
-                                      SuperCategory.map((superCat, i) => (
-                                        <option key={i} value={`${superCat.value}`}>{superCat.label}</option>
+                                      serviceCategory.length > 0 &&
+                                      serviceCategory.map((superCat, i) => (
+                                        <option key={i} value={`${superCat.code}`}>{superCat.desc}</option>
                                       ))
                                     }
                                   </select>
@@ -617,10 +681,11 @@ const CreateTicketPQRS = () => {
 
                                   <span htmlFor="inWhatTicket" className="text-label label-select-form">¿En qué servicio? *</span>
                                   <select onChange={(e) => inputChangeHandler(e)} id='inWhatTicket' value={formInfo.inWhatTicket} name='inWhatTicket' className='type-identification custom-select custom-select-lg'>
+                                    <option value=""></option>
                                     {
                                       serviceIssue && serviceIssue.length > 0 &&
                                       serviceIssue.map((superCat, i) => (
-                                        <option key={i} value={`${superCat.value}`}>{superCat.label}</option>
+                                        <option key={i} value={`${superCat.code}`}>{superCat.desc}</option>
                                       ))
                                     }
                                   </select>
@@ -705,7 +770,7 @@ const CreateTicketPQRS = () => {
 
                                             <span htmlFor="tipoIdentContacto" className='text-label label-select-form'>Tipo de identificación de contacto *</span>
                                             <select onChange={(e) => inputChangeHandler(e)} id='tipoIdentContacto' value={formInfo.tipoIdentContacto} name='tipoIdentContacto' className='tipoIdentContacto custom-select custom-select-lg'>
-                                              <option value={""}>Seleccione tipo de identificación de contacto</option>
+                                              <option value={""}></option>
                                               {
                                                 tipoIdentFiscal.length > 0 &&
                                                 tipoIdentFiscal.map((tipo) => (
@@ -762,7 +827,7 @@ const CreateTicketPQRS = () => {
                                   <div className='position-relative'>
 
                                     <div className={'form-component'}>
-                                      <h4>Archivos adjunto:</h4>
+                                      <h4>Archivo adjunto:</h4>
                                       <h5>Formatos válidos .pdf (Máx. 50Mb)</h5>
                                       <h5>El sistema permite adjuntar unicamente un archivo.</h5>
                                       <input onChange={(e) => handleInputFile(e)} type="file" id='file' name='file' className='file input-form' accept='.pdf' />
@@ -799,11 +864,17 @@ const CreateTicketPQRS = () => {
                                 {
                                   formError ?
                                     (
-                                      <button className='btn-submit-search  margin-auto' type='button' readOnly>Crear PQRSF</button>
+                                      <div>
+                                        <button className='btn-cancel-back margin-auto' type='button' readOnly>Cancelar</button>
+                                        <button className='btn-submit-search margin-auto' type='button' readOnly>Crear PQRSF</button>
+                                      </div>
                                     )
                                     :
                                     (
-                                      <button className='btn-submit-search  margin-center' type='submit'>Crear PQRSF</button>
+                                      <div>
+                                        <button className='btn-cancel-back margin-auto' onClick={() => backToHome()} type='button'>Cancelar</button>
+                                        <button className='btn-submit-search margin-center' type='submit'>Crear PQRSF</button>
+                                      </div>
                                     )
                                 }
                               </div>

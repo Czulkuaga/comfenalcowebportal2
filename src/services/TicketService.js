@@ -1,10 +1,22 @@
 const TicketService = {}
 
-const crearTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
-const attachTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
-const consultaTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
-const updateTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
+//QA
+// const crearTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
+// const attachTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
+// const consultaTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
+// const updateTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45400/RESTAdapter/wsTicketC4COData/`
 
+//Produccion
+const crearTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsTicketC4COData/`
+const attachTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsTicketC4COData/`
+const consultaTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsTicketC4COData/`
+const updateTicket_API_URL = `https://srvdpsap.comfenalcoantioquia.com:45500/RESTAdapter/wsTicketC4COData/`
+
+//QA
+// const Username = 'POFORMWEBC4C'
+// const Password = 'd7d38Hnojmi7f6'
+
+//Producción
 const Username = 'POFORMWEBC4C'
 const Password = 'd7d38Hnojmi7f6'
 

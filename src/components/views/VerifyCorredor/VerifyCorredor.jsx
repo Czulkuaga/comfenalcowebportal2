@@ -139,7 +139,7 @@ const VerifyCorredor = () => {
         }
         // console.log(emailUser)
         if (emailUser) {
-            await fetch(`${Setting}/api/users/verify/customer-verify`, {
+            await fetch(`${Setting}/corredores-back/users/verify/customer-verify`, {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
